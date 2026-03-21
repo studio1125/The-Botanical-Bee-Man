@@ -45,7 +45,7 @@ public class Flower : MonoBehaviour {
             if (pollinationTimer >= pollinationTime) { // check if the bee has been pollinating the flower for long enough to fully pollinate it
 
                 pollinationTimer = 0f; // reset the timer for the next pollination
-                hasNectar = false;
+                hasNectar = false; // set nectar availability to false until it regenerates
                 pollinationSlider.gameObject.SetActive(false); // hide the pollination slider when the flower is fully pollinated
                 onPollinated?.Invoke(nectarAmount); // invoke the pollination action to notify other parts of the game that the flower has been fully pollinated
                 Invoke(nameof(ResetNectar), UnityEngine.Random.Range(nectarRegenerationRange.x, nectarRegenerationRange.y)); // schedule the nectar to be reset after a random time within the specified range

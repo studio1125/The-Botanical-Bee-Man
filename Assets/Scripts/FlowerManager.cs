@@ -13,6 +13,14 @@ public class FlowerManager : MonoBehaviour {
         dataManager = FindFirstObjectByType<DataManager>();
         flowers = new List<Flower>();
 
+        // can be removed later, but this will also register all existing flowers in case they were spawned in the editor
+        foreach (Flower flower in FindObjectsByType<Flower>(FindObjectsSortMode.None)) {
+
+            flowers.Add(flower);
+            flower.onPollinated += (nectar) => AddNectar(nectar); // subscribe to the pollination event for each flower
+
+        }
+
         SpawnFlowers(); // spawn the flowers at the start of the game
 
     }

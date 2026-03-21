@@ -34,7 +34,7 @@ RectTransform:
   m_Father: {fileID: 6117884094595285347}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -436,7 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Flower
   pollinationSlider: {fileID: 7950402475966243161}
   pollinationTime: 1
-  nectarAmount: 5
+  nectarAmount: 3
   nectarRegenerationRange: {x: 2, y: 5}
 --- !u!1 &6748716080062687413
 GameObject:

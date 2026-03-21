@@ -3,7 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 
     [Header("References")]
-    private GameManager gameManager;
+    private BuzzModeManager gameManager;
     private new Camera camera;
 
     [Header("Follow")]
@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
     private void Start() {
 
         target = FindFirstObjectByType<BeeController>().transform;
-        gameManager = FindFirstObjectByType<GameManager>();
+        gameManager = FindFirstObjectByType<BuzzModeManager>();
         camera = GetComponent<Camera>();
 
         mapBounds = gameManager.GetMapBounds();
