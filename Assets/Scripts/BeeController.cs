@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class BeeController : MonoBehaviour {
 
@@ -40,6 +41,14 @@ public class BeeController : MonoBehaviour {
         // clamp the velocity to the move speed
         if (rb.linearVelocity.magnitude > moveSpeed)
             rb.linearVelocity = rb.linearVelocity.normalized * moveSpeed;
+
+    }
+
+    private void OnDrawGizmos() {
+
+        Gizmos.color = Color.red;
+        if (rb)
+            Gizmos.DrawLine(transform.position, (Vector2)transform.position + (0.3f * rb.linearVelocity));
 
     }
 }
