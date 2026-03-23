@@ -9,8 +9,12 @@ public class FlowerManagerEditor : Editor {
 
         FlowerManager flowers = (FlowerManager)target;
 
-        if (GUILayout.Button("Match Grid To Map Bounds"))
+        if (GUILayout.Button("Cycle Displayed Grid"))
+            flowers.CycleDisplayedGrid();
+
+        if (GUILayout.Button("Match Displayed Grid To Map Bounds"))
             flowers.MatchGridToMap();
+
 
     }
 }

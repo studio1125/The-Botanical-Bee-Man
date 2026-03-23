@@ -1,80 +1,103 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class FlowerManager : MonoBehaviour {
 
     [Header("References")]
-    [SerializeField] private Flower[] flowerPrefabs;
-    private List<Flower> flowers; // list to hold the instantiated flower objects
+
     private DataManager dataManager;
 
-    [Header("Spawn Region (\"Grid\")")]
-    [SerializeField] private Vector2 gridCenter;
-    [SerializeField, Min(0)] private float gridWidth;
-    [SerializeField, Min(0)] private float gridHeight;
-    [SerializeField, Tooltip("try to pick factor of width"), Min(0.1f)] private float gridWidthDelta;
-    [SerializeField, Tooltip("try to pick factor of height"), Min(0.1f)] private float gridHeightDelta;
-    [SerializeField, Range(0, 1)] private float flowerSpawnChance;
-    [SerializeField, Min(0), Tooltip("Adds a bit of randomness to flower pos")] private float flowerPositionOffset;
-    [SerializeField] private bool drawGridGizmo;
-    // TODO: Add "Fit map bounds" button
+    [Serializable]
+    private class ObjectSpawnRegion {
+
+        [Header("Spawning")]
+        [SerializeField, Tooltip("Equal chance of spawning any listed object")] public List<GameObject> spawns;
+        [SerializeField] public bool isFlowerGrid;
+        [SerializeField, Range(0, 1)] public float objSpawnChance;
+        [SerializeField, Min(0), Tooltip("Adds a bit of randomness to flower pos")] public float objPositionOffset;
+        [HideInInspector] public List<GameObject> spawned; // list to hold the instantiated flower objects
+
+        [Header("Region Config")]
+        [SerializeField] public Vector2 gridCenter;
+        [SerializeField, Min(0)] public float gridWidth;
+        [SerializeField, Min(0)] public float gridHeight;
+        [SerializeField, Tooltip("try to pick factor of width"), Min(0.1f)] public float gridWidthDelta;
+        [SerializeField, Tooltip("try to pick factor of height"), Min(0.1f)] public float gridHeightDelta;
+
+        [Header("Debug")]
+        [SerializeField] public Color displayColor = Color.green;
+
+
+    }
+
+    [Header("Spawn Regions (\"Grids\")")]
+    [SerializeField] List<ObjectSpawnRegion> grids;
+    [SerializeField, Min(0), Tooltip("For editor")] int displayedGridIdx;
 
     private void Start() {
 
         dataManager = FindFirstObjectByType<DataManager>();
-        flowers = new List<Flower>();
 
-        // can be removed later, but this will also register all existing flowers in case they were spawned in the editor
-        foreach (Flower flower in FindObjectsByType<Flower>(FindObjectsSortMode.None)) {
+        foreach (ObjectSpawnRegion grid in grids)
+            grid.spawned = new List<GameObject>();
 
-            flowers.Add(flower);
-            flower.onPollinated += (nectar) => AddNectar(nectar); // subscribe to the pollination event for each flower
-
-        }
-
-        SpawnFlowers(); // spawn the flowers at the start of the game
+        SpawnObjects(); // spawn the flowers at the start of the game
 
     }
 
     // spawns all flowers based on grid config and spawn chance
-    private void SpawnFlowers() {
+    private void SpawnObjects() {
 
-        // TODO: implement 
-        float dx = gridWidthDelta;
-        float xo = (gridCenter.x - gridWidth / 2) + dx / 2;
-        float xf = gridCenter.x + gridWidth / 2;
+        foreach (ObjectSpawnRegion grid in grids) {
 
-        float dy = gridHeightDelta;
-        float yo = (gridCenter.y - gridHeight / 2) + dy / 2;
-        float yf = gridCenter.y + gridHeight / 2;
+            float dx = grid.gridWidthDelta;
+            float xo = (grid.gridCenter.x - grid.gridWidth / 2) + dx / 2;
+            float xf = grid.gridCenter.x + grid.gridWidth / 2;
 
-        int maxFlowers = (int)((gridWidth / gridWidthDelta) * (gridHeight / gridHeightDelta));
+            float dy = grid.gridHeightDelta;
+            float yo = (grid.gridCenter.y - grid.gridHeight / 2) + dy / 2;
+            float yf = grid.gridCenter.y + grid.gridHeight / 2;
 
-        for (float x = xo; x < xf; x += dx)
-            for (float y = yo; y < yf; y += dy)
-                if (Random.Range(0f, 1f) < flowerSpawnChance)
-                    SpawnFlower(new Vector2(x + Random.Range(-flowerPositionOffset, flowerPositionOffset),
-                                            y + Random.Range(-flowerPositionOffset, flowerPositionOffset)));
+            if (dx == 0 || dy == 0) {
 
+                Debug.LogError("A grid in the FlowerManager has an invalid configuration! Height and width deltas must be nonzero. Skipped spawning for grid.");
+                return;
+
+            }
+
+            for (float x = xo; x < xf; x += dx)
+                for (float y = yo; y < yf; y += dy)
+                    if (UnityEngine.Random.Range(0f, 1f) < grid.objSpawnChance)
+                        SpawnObject(new Vector2(x + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset),
+                                                y + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset)), grid);
+
+
+
+        }
     }
 
     private void OnDisable() {
 
         // unsubscribe from the pollination events to prevent memory leaks when the object is disabled
-        foreach (Flower flower in flowers)
-            flower.onPollinated -= (nectar) => AddNectar(nectar);
+        foreach (ObjectSpawnRegion grid in grids)
+            if (grid.isFlowerGrid)
+                foreach (GameObject obj in grid.spawned)
+                    (obj.GetComponent<Flower>()).onPollinated -= (nectar) => AddNectar(nectar);
 
     }
 
 
     // spawns a flower (and subscribes to its pollination event)
-    Flower SpawnFlower(Vector2 loc) {
+    GameObject SpawnObject(Vector2 loc, ObjectSpawnRegion owner) {
 
-        Flower newFlower = Instantiate(flowerPrefabs[0], loc, Quaternion.identity); // spawn a flower at a specific position
-        flowers.Add(newFlower);
-        newFlower.onPollinated += (nectar) => AddNectar(nectar); // add nectar to the player's total when a flower is pollinated
+        GameObject obj = Instantiate(owner.spawns[UnityEngine.Random.Range(0, owner.spawns.Count)], loc, Quaternion.identity); // spawn a flower at a specific position
+        owner.spawned.Add(obj);
 
-        return newFlower;
+        if (owner.isFlowerGrid)
+            obj.GetComponent<Flower>().onPollinated += (nectar) => AddNectar(nectar); // add nectar to the player's total when a flower is pollinated
+
+        return obj;
 
     }
 
@@ -82,54 +105,75 @@ public class FlowerManager : MonoBehaviour {
 
     public void MatchGridToMap() {
 
+        if (displayedGridIdx > grids.Count) {
+
+            Debug.LogError("Invalid displayed grid idx!");
+            return;
+
+        }
+
+        ObjectSpawnRegion grid = grids[displayedGridIdx];
+
         BoxCollider2D mapCollider = FindFirstObjectByType<BuzzModeManager>().GetMapBounds();
         Bounds mapBounds = mapCollider.bounds;
 
-        gridWidth = Mathf.Abs(mapBounds.max.x - mapBounds.min.x);
-        gridHeight = Mathf.Abs(mapBounds.max.y - mapBounds.min.y);
+        grid.gridWidth = Mathf.Abs(mapBounds.max.x - mapBounds.min.x);
+        grid.gridHeight = Mathf.Abs(mapBounds.max.y - mapBounds.min.y);
 
-        gridCenter = new Vector2(mapCollider.transform.position.x + mapBounds.center.x,
+        grid.gridCenter = new Vector2(mapCollider.transform.position.x + mapBounds.center.x,
                                 mapCollider.transform.position.y + mapBounds.center.y);
+
+    }
+
+    public void CycleDisplayedGrid() {
+
+        displayedGridIdx++;
+
+        if (displayedGridIdx >= grids.Count)
+            displayedGridIdx = 0;
 
     }
 
     private void OnDrawGizmos() {
 
-        Gizmos.color = Color.mediumSpringGreen;
-        Gizmos.DrawWireCube(gridCenter, new Vector2(gridWidth, gridHeight));
+        if (displayedGridIdx > grids.Count)
+            return;
+
+        ObjectSpawnRegion grid = grids[displayedGridIdx];
+
+        Gizmos.color = grid.displayColor;
+        Gizmos.DrawWireCube(grid.gridCenter, new Vector2(grid.gridWidth, grid.gridHeight));
 
     }
 
     private void OnDrawGizmosSelected() {
 
-        if (drawGridGizmo) {
+        if (displayedGridIdx > grids.Count) {
 
-            // taken from spawn logic
-
-            float dx = gridWidthDelta;
-            float xo = (gridCenter.x - gridWidth / 2) + dx / 2;
-            float xf = gridCenter.x + gridWidth / 2;
-
-            float dy = gridHeightDelta;
-            float yo = (gridCenter.y - gridHeight / 2) + dy / 2;
-            float yf = gridCenter.y + gridHeight / 2;
-
-            for (float x = xo; x < xf; x += dx)
-                for (float y = yo; y < yf; y += dy) {
-
-                    /*if (Random.Range(0f, 1f) < flowerSpawnChance) {
-
-                        Gizmos.color = Color.white;
-                        Gizmos.DrawWireCube(new Vector2(x, y), new Vector2(dx, dy));
-
-                    }*/
-
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(new Vector2(x, y), 0.2f);
-
-                }
+            Debug.LogError("Invalid displayed grid idx!");
+            return;
 
         }
+
+        ObjectSpawnRegion grid = grids[displayedGridIdx];
+
+        Gizmos.color = grid.displayColor;
+
+        // taken from spawn logic
+
+        float dx = grid.gridWidthDelta;
+        float xo = (grid.gridCenter.x - grid.gridWidth / 2) + dx / 2;
+        float xf = grid.gridCenter.x + grid.gridWidth / 2;
+
+        float dy = grid.gridHeightDelta;
+        float yo = (grid.gridCenter.y - grid.gridHeight / 2) + dy / 2;
+        float yf = grid.gridCenter.y + grid.gridHeight / 2;
+
+        if (dx == 0 || dy == 0) return;
+
+        for (float x = xo; x < xf; x += dx)
+            for (float y = yo; y < yf; y += dy)
+                Gizmos.DrawSphere(new Vector2(x, y), 0.2f);
 
     }
 
