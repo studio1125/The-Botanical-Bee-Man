@@ -15,6 +15,7 @@ public class FlowerManager : MonoBehaviour {
     [SerializeField, Tooltip("try to pick factor of width"), Min(0.1f)] private float gridWidthDelta;
     [SerializeField, Tooltip("try to pick factor of height"), Min(0.1f)] private float gridHeightDelta;
     [SerializeField, Range(0, 1)] private float flowerSpawnChance;
+    [SerializeField, Min(0), Tooltip("Adds a bit of randomness to flower pos")] private float flowerPositionOffset;
     [SerializeField] private bool drawGridGizmo;
     // TODO: Add "Fit map bounds" button
 
@@ -52,8 +53,8 @@ public class FlowerManager : MonoBehaviour {
         for (float x = xo; x < xf; x += dx)
             for (float y = yo; y < yf; y += dy)
                 if (Random.Range(0f, 1f) < flowerSpawnChance)
-                    SpawnFlower(new Vector2(x, y));
-
+                    SpawnFlower(new Vector2(x + Random.Range(-flowerPositionOffset, flowerPositionOffset),
+                                            y + Random.Range(-flowerPositionOffset, flowerPositionOffset)));
 
     }
 
