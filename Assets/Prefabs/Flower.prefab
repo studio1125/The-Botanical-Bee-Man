@@ -444,7 +444,7 @@ MonoBehaviour:
   pollinationTime: 1
   damageTime: 0.4
   nectarLifetime:
-    duration: 4
+    duration: 4.5
     updateFrequency: 1
   nectarAmount: 5
   nectarRegenerationRange: {x: 4, y: 8}

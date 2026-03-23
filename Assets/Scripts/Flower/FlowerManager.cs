@@ -83,7 +83,8 @@ public class FlowerManager : MonoBehaviour {
         foreach (ObjectSpawnRegion grid in grids)
             if (grid.isFlowerGrid)
                 foreach (GameObject obj in grid.spawned)
-                    (obj.GetComponent<Flower>()).onPollinated -= (nectar) => AddNectar(nectar);
+                    if (obj)
+                        obj.GetComponent<Flower>().onPollinated -= (nectar) => AddNectar(nectar);
 
     }
 

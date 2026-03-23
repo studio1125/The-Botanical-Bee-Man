@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -5,6 +6,7 @@ public class BeeController : MonoBehaviour {
 
     [Header("References")]
     private Rigidbody2D rb;
+    private BuzzUIManager ui;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -20,20 +22,43 @@ public class BeeController : MonoBehaviour {
     [SerializeField, Tooltip("% that rotation speed will be set to after being damaged"), Range(0, 2)] private float damageRotSpeedPenalty;
     [SerializeField, Tooltip("How long to keep reduced move speed")] private Cooldown damageSpeedPenaltyDuration;
 
+    [Header("Super Bumble ")]
+    [SerializeField, Tooltip("Charge gained on pollinate flower, max 100")] private float superChargeOnPollinate;
+    [SerializeField, Tooltip("Charge decay per second")] private float superChargeDecay;
+    [SerializeField] private float superDuration;
+    private float superCharge;
+
+
     private void Start() {
 
         rb = GetComponent<Rigidbody2D>();
+        ui = FindAnyObjectByType<BuzzUIManager>();
+
+        FindAnyObjectByType<DataManager>().onNectarCollected += amount => OnPollinateFlower();
 
         currMoveSpeed = moveSpeed;
         currRotationSpeed = rotationSpeed;
 
     }
 
-    private void Update() => isHoldingMouseButton = Input.GetMouseButton(0);
+    private void Update() {
+        isHoldingMouseButton = Input.GetMouseButton(0);
+
+        if (superCharge != 100)
+            superCharge = Mathf.Max(0, superCharge - (superChargeDecay * Time.deltaTime));
+
+        ui.UpdateSuperSlider(superCharge);
+
+    }
 
     private void FixedUpdate() {
 
-        if (!isHoldingMouseButton) return; // only move towards the mouse position when the left mouse button is held down
+        if (!isHoldingMouseButton) {
+
+            rb.angularVelocity = 0;
+            return; // only move towards the mouse position when the left mouse button is held down
+
+        }
 
         // if the damage penalty cooldown started and its done, finish the cooldown and set speeds to default values
         if (CooldownManager.HasCooldown(damageSpeedPenaltyDuration) && CooldownManager.FulfillIfComplete(damageSpeedPenaltyDuration)) {
@@ -73,6 +98,8 @@ public class BeeController : MonoBehaviour {
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(kbDir.normalized * damageKb, ForceMode2D.Impulse);
 
+        superCharge = 0;
+
         // apply penalties to speed
         currMoveSpeed = moveSpeed * damageMoveSpeedPenalty;
         currRotationSpeed = rotationSpeed * damageRotSpeedPenalty;
@@ -80,6 +107,18 @@ public class BeeController : MonoBehaviour {
         CooldownManager.ForceStart(damageSpeedPenaltyDuration);
 
     }
+    public void OnPollinateFlower() {
+
+        superCharge = Mathf.Min(100, superCharge + superChargeOnPollinate);
+        if (superCharge == 100) // TODO: switch to cooldown
+            Invoke(nameof(ResetSuper), superDuration);
+
+    }
+
+    private void ResetSuper() => superCharge = 0;
+
+    public bool HasSuper() => superCharge >= 100;
+
 
     private void OnDrawGizmos() {
 

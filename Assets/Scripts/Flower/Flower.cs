@@ -119,7 +119,7 @@ public class Flower : MonoBehaviour {
                 pollinationTimer += Time.deltaTime;
                 pollinationSlider.value = pollinationTimer / pollinationTime; // update the slider to show the pollination progress
 
-                if (pollinationTimer >= pollinationTime) { // check if the bee has been pollinating the flower for long enough to fully pollinate it
+                if (player.HasSuper() || pollinationTimer >= pollinationTime) { // check if the bee has been pollinating the flower for long enough to fully pollinate it (or player has super)
 
                     ClearNectar();
                     onPollinated?.Invoke(nectarAmount); // invoke the pollination action to notify other parts of the game that the flower has been fully pollinated

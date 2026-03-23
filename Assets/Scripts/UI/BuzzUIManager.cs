@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuzzUIManager : BaseUIManager {
 
@@ -17,6 +18,9 @@ public class BuzzUIManager : BaseUIManager {
     [Header("Nectar HUD")]
     [SerializeField] private RectTransform nectarHUD;
     [SerializeField] private TMP_Text nectarText;
+
+    [Header("Super HUD")]
+    [SerializeField] private Slider superChargeSlider;
 
     [Header("Settings")]
     [SerializeField] private float textLerpDuration;
@@ -53,6 +57,8 @@ public class BuzzUIManager : BaseUIManager {
         textLerpCoroutine = StartCoroutine(HandleTextLerp(nectarText, nectarCollected, textLerpDuration)); // start a new text lerp coroutine to animate the change in nectar text
 
     }
+
+    public void UpdateSuperSlider(float percent) => superChargeSlider.value = percent;
 
     private IEnumerator HandleTextLerp(TMP_Text text, float targetValue, float lerpDuration) {
 
