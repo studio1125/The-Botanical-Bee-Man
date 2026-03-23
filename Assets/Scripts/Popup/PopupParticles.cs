@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class PopupParticles : Popup {
 
+    // TODO: Make certain popups support "direct reusage," reusing identical popups instead of just same type. Needed for particles 
+
     private ParticleSystem particlePlayer;
 
     // i don't remember why i reimplemented all the ParticleSystem fields here, but i'm going to assume there was a good reason
