@@ -16,6 +16,18 @@ public class BeeController : MonoBehaviour {
     [SerializeField] private float stopThreshold; // minimum distance to mouse position before stopping
     private bool isHoldingMouseButton;
 
+    private enum LookMode {
+
+        Point,
+        Flip,
+        None
+
+    }
+
+    [Header("Visual")]
+    [SerializeField] private GameObject sprite;
+    [SerializeField] private LookMode lookMode;
+
     [Header("Taking Damage")]
     [SerializeField] private float damageKb;
     [SerializeField, Tooltip("% that move speed will be set to after being damaged"), Range(0, 1)] private float damageMoveSpeedPenalty;
@@ -48,6 +60,8 @@ public class BeeController : MonoBehaviour {
             superCharge = Mathf.Max(0, superCharge - (superChargeDecay * Time.deltaTime));
 
         ui.UpdateSuperSlider(superCharge);
+
+        UpdateSprite();
 
     }
 
@@ -89,6 +103,35 @@ public class BeeController : MonoBehaviour {
         // clamp the velocity to the move speed
         if (rb.linearVelocity.magnitude > currMoveSpeed)
             rb.linearVelocity = rb.linearVelocity.normalized * currMoveSpeed;
+
+    }
+
+    private void UpdateSprite() {
+
+        sprite.transform.position = transform.position;
+
+        switch (lookMode) {
+
+            case LookMode.Point:
+                sprite.transform.rotation = transform.rotation;
+                break;
+
+            case LookMode.Flip:
+
+                sprite.transform.rotation = Quaternion.Euler(Vector3.zero);
+
+                if (transform.rotation.eulerAngles.z > 0)
+                    sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -sprite.transform.localScale.y);
+                else
+                    sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, sprite.transform.localScale.y);
+                break;
+
+            default:
+                break;
+
+        }
+
+
 
     }
 

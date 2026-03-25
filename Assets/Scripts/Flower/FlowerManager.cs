@@ -25,6 +25,9 @@ public class FlowerManager : MonoBehaviour {
         [SerializeField, Tooltip("try to pick factor of width"), Min(0.1f)] public float gridWidthDelta;
         [SerializeField, Tooltip("try to pick factor of height"), Min(0.1f)] public float gridHeightDelta;
 
+        [Header("Visual")]
+        [SerializeField] public bool randomizeFacingDirection;
+
         [Header("Debug")]
         [SerializeField] public Color displayColor = Color.green;
 
@@ -70,7 +73,8 @@ public class FlowerManager : MonoBehaviour {
                 for (float y = yo; y < yf; y += dy)
                     if (UnityEngine.Random.Range(0f, 1f) < grid.objSpawnChance)
                         SpawnObject(new Vector2(x + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset),
-                                                y + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset)), grid);
+                                                y + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset)),
+                                                grid);
 
 
 
@@ -94,6 +98,9 @@ public class FlowerManager : MonoBehaviour {
 
         GameObject obj = Instantiate(owner.spawns[UnityEngine.Random.Range(0, owner.spawns.Count)], loc, Quaternion.identity); // spawn a flower at a specific position
         owner.spawned.Add(obj);
+
+        if (owner.randomizeFacingDirection && UnityEngine.Random.Range(0f, 1f) < 0.5f)
+            obj.transform.localScale = new Vector3(-obj.transform.localScale.x, obj.transform.localScale.y);
 
         if (owner.isFlowerGrid)
             obj.GetComponent<Flower>().onPollinated += (nectar) => AddNectar(nectar); // add nectar to the player's total when a flower is pollinated

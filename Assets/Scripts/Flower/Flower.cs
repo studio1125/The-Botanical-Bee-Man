@@ -8,11 +8,6 @@ public class Flower : MonoBehaviour {
     [SerializeField] private Slider pollinationSlider;
     private BeeController player;
 
-    [Header("Particle References (temp)")]
-    [SerializeField] private ParticleSystem nectarParticles;
-    [SerializeField] private ParticleSystem pesticideCloseParticles;
-    [SerializeField] private ParticleSystem pesticideFarParticles;
-
     [Header("Settings")]
     [SerializeField, Tooltip("The time it takes for the flower to be fully pollinated")] private float pollinationTime;
     [SerializeField, Tooltip("The time the bee must be in contact before taking pesticide damage")] private float damageTime;
@@ -23,11 +18,20 @@ public class Flower : MonoBehaviour {
     [SerializeField, Tooltip("Radius player must be within of the flower to see pesticideCloseParticles"), Min(0)] private float pesticideViewRadius;
     [SerializeField, Tooltip("chance to spawn with nectar"), Range(0, 1)] private float hasNectarOnSpawnChance;
     [SerializeField, Tooltip("chance to spawn with nectar"), Range(0, 1)] private float hasPesticideChance;
-    [SerializeField, Tooltip("chance to spawn nectar after cooldown"), Range(0, 1)] private float spawnNectarChance;
     private float pollinationTimer;
     private float damageTimer;
     private bool hasNectar;
     private bool hasPesticide;
+
+    [Header("Popups")]
+    [SerializeField] private Transform nectarTransform;
+    [SerializeField] private Popup nectarPopup;
+    private Popup activeNectarPopup;
+    [SerializeField] private Popup nectarExpirePopup;
+    [SerializeField] private Transform pesticideTransform;
+    [SerializeField] private Popup pesticideClosePopup;
+    private Popup activePesticideClosePopup;
+    [SerializeField] private Popup pesticideFarPopup;
 
     [Header("Actions")]
     public Action<int> onPollinated; // action to be invoked when the flower is fully pollinated (passes the amount of nectar provided by the flower as an argument)
@@ -39,27 +43,20 @@ public class Flower : MonoBehaviour {
 
         player = FindAnyObjectByType<BeeController>();
 
-        nectarParticles.Stop();
-        pesticideCloseParticles.Stop();
-
         if (UnityEngine.Random.Range(0f, 1f) < hasNectarOnSpawnChance)
-            ResetNectar(); // the flower starts with nectar available
+            ScheduleResetNectar(nectarRegenerationRange / 2); // the flower starts with nectar available
         else
             ScheduleResetNectar();
 
         if (UnityEngine.Random.Range(0f, 1f) < hasPesticideChance) {
 
-            pesticideFarParticles.Play();
+            PopupPlayer.Play(pesticideFarPopup, pesticideTransform.position, true);
             hasPesticide = true;
 
         }
 
-        else {
-
-            pesticideFarParticles.Stop();
+        else
             hasPesticide = false;
-
-        }
 
         pollinationSlider.gameObject.SetActive(false); // hide the pollination slider at the start
 
@@ -72,10 +69,10 @@ public class Flower : MonoBehaviour {
 
             bool playerInRange = Vector2.Distance(player.transform.position, transform.position) < pesticideViewRadius;
 
-            if (!pesticideCloseParticles.isPlaying && playerInRange)
-                pesticideCloseParticles.Play();
+            if (!activePesticideClosePopup && playerInRange)
+                activePesticideClosePopup = PopupPlayer.Play(pesticideClosePopup, pesticideTransform.position, true);
             else if (!playerInRange)
-                pesticideCloseParticles.Stop();
+                PopupPlayer.Stop(ref activePesticideClosePopup);
 
         }
 
@@ -162,7 +159,7 @@ public class Flower : MonoBehaviour {
 
     private void ResetNectar() {
 
-        nectarParticles.Play();
+        activeNectarPopup = PopupPlayer.Play(nectarPopup, nectarTransform.position, true);
         hasNectar = true; // method to reset the nectar availability
 
     }
@@ -170,8 +167,10 @@ public class Flower : MonoBehaviour {
     // removes nectar and adjusts state to match
     private void ClearNectar() {
 
+        PopupPlayer.Play(nectarExpirePopup, transform.position, false);
+
         CooldownManager.Fulfill(nectarLifetime); // perhaps redundant, but end old nectar lifetime cooldown
-        nectarParticles.Stop(); // disable pollen particles
+        PopupPlayer.Stop(ref activeNectarPopup); // disable pollen particles
         hasNectar = false; // mark as not having pollen
         pollinationTimer = 0f; // reset timers
         damageTimer = 0f;
