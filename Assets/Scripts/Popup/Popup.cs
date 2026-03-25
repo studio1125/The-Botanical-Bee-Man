@@ -8,10 +8,6 @@ public abstract class Popup : MonoBehaviour {
     [Header("Default Duration")]
     [SerializeField] protected float duration;
 
-    // switches the component configuration of this popup to that of Popup other
-    // ex: for a PopupItem, wwap out the sprite and the runtime animation controller
-    public abstract void SwapPopup(Popup popup);
-
     // get/set all components
     // call this after instantiating a new popup
     public abstract void Initialize();
@@ -21,6 +17,8 @@ public abstract class Popup : MonoBehaviour {
     //      duration or a custom one
     public IEnumerator HandlePlay(float? overrideDuration = null, GameObject target = null, bool persistent = false) {
 
+        OnPlay();
+
         float remaining = overrideDuration ?? duration;
         gameObject.SetActive(true);
 
@@ -29,7 +27,7 @@ public abstract class Popup : MonoBehaviour {
                 if (target != null)
                     transform.position = target.transform.position;
 
-                yield return new WaitForEndOfFrame();
+                yield return null;
             }
         else {
 
@@ -37,14 +35,13 @@ public abstract class Popup : MonoBehaviour {
                 if (target != null)
                     transform.position = target.transform.position;
 
-                yield return new WaitForEndOfFrame();
+                yield return null;
                 remaining -= Time.deltaTime;
             }
 
-            gameObject.SetActive(false);
-        }
+            OnFinish();
 
-        OnFinish();
+        }
 
     }
 
@@ -53,124 +50,62 @@ public abstract class Popup : MonoBehaviour {
 
         // Popups are deactivated when not playing, and you cant stop a stopped Popup
         if (gameObject.activeSelf)
-            gameObject.SetActive(false);
+            OnFinish();
 
     }
 
     // repool this Popup. override to enable special behavior on finish.
     // WHEN REIMPLEMENTING, MAKE SURE TO CALL base.OnFinish()!!!!!!!!!!
-    protected virtual void OnFinish() => PopupPlayer.Pool(this);
-
-    #region Legacy
-
-    /*
-    // for a FIXED POSITION,
-    // passed into Play(Popup popup, Vector3 position, float duration)
-    // overrides default duration
-    public IEnumerator HandlePlay(float duration) {
-
-        float elapsed = duration;
-
-        gameObject.SetActive(true);
-
-        while (elapsed > 0) {
-
-            yield return new WaitForEndOfFrame();
-            elapsed -= Time.deltaTime;
-
-        }
+    protected virtual void OnFinish() {
 
         gameObject.SetActive(false);
 
-    }
-
-    // for a CHANGING POSITION, copying that of a GameObject,
-    // passed into PopupPlayer.Play(Popup popup, GameObject target, float duration)
-    // overrides default duration
-    public IEnumerator HandlePlay(GameObject target, float duration) {
-
-        float elapsed = duration;
-
-        gameObject.SetActive(true);
-
-        while (elapsed > 0) {
-
-            yield return new WaitForEndOfFrame();
-            elapsed -= Time.deltaTime;
-
-            if (target != null)
-                gameObject.transform.position = target.transform.position;
-
-        }
-
-        gameObject.SetActive(false);
+        PopupPlayer.Pool(this);
 
     }
 
-    // for a FIXED POSITION,
-    // passed into Play(Popup popup, Vector3 position)
-    // uses default duration, or is infinite if peristent = true
-    public IEnumerator HandlePlay(bool persistent) {
+    // called on play ...
+    protected virtual void OnPlay() { }
 
-        float elapsed = duration;
+    public abstract bool IsStrict { get; }
 
-        gameObject.SetActive(true);
-
-        if (!persistent) {
-
-            while (elapsed > 0) {
-
-                yield return new WaitForEndOfFrame();
-                elapsed -= Time.deltaTime;
-
-            }
-
-            gameObject.SetActive(false);
-
-        }
-
-        // no need to deactivate the object, that is already done in Stop();
-
-    }
-
-    // for a CHANGING POSITION, copying that of a GameObject,
-    // passed into PopupPlayer.Play(Popup popup, GameObject target)
-    // uses default duration, or is infinite if peristent = true
-    public IEnumerator HandlePlay(GameObject target, bool persistent) {
-
-        float elapsed = duration;
-
-        gameObject.SetActive(true);
-
-        if (!persistent) {
-
-            while (elapsed > 0) {
-
-                yield return new WaitForEndOfFrame();
-                elapsed -= Time.deltaTime;
-
-                if (target != null)
-                    gameObject.transform.position = target.transform.position;
-
-            }
-
-            gameObject.SetActive(false);
-        }
-        else
-            while (gameObject.activeSelf) {
-
-                yield return new WaitForEndOfFrame();
-
-                if (target != null)
-                    gameObject.transform.position = target.transform.position;
-
-            }
-
-
-        // no need to deactivate the object, that is already done in Stop();
-
-    }
-    */
-
-    #endregion
 }
+
+// depools exact matches, used for copies that are too heavy or complex (like particle systems)
+// faster but uses more memory
+public abstract class StrictPopup : Popup {
+
+    public override bool IsStrict => true;
+
+    private int parentId;
+
+    public void SetId(Popup p) => parentId = p.GetInstanceID();
+
+    public int Id {
+
+        get => parentId;
+
+    }
+
+}
+
+// depools matching types then copies state, used for lighter copies (like sprite)
+// slower but uses less memory 
+public abstract class FlexPopup : Popup {
+
+    public override bool IsStrict => false;
+
+    // switches the component configuration of this popup to that of Popup other
+    // ex: for a PopupItem, xwap out the sprite and the runtime animation controller
+    public abstract void SwapPopup(Popup popup);
+
+    public System.Type Type {
+
+        get => GetType();
+
+    }
+
+
+}
+
+// in certain applications, there is no performance difference between flex and strict 

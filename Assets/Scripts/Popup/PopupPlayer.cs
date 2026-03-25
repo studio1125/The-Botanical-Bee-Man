@@ -25,6 +25,26 @@ public class PopupPlayer : MonoBehaviour {
     [Header("Singleton")]
     private static PopupPlayer Instance;
 
+    [Serializable]
+    public class PopupPoolConfigurator {
+
+        [SerializeField] private Popup popup;
+        [SerializeField] private int numToSpawn;
+
+        public int NumToSpawn {
+
+            get { return numToSpawn; }
+
+        }
+
+        public Popup Popup {
+
+            get { return popup; }
+
+        }
+
+    }
+
     [Header("Pool")]
     [SerializeField][Tooltip("All popups are children of this GameObject's transform")] private GameObject poolParent;
     [SerializeField][Tooltip("Reccomended to leave this on unless using really expensive popups or are in a very memory-tight scenario")] private bool infinitePool;
@@ -39,7 +59,95 @@ public class PopupPlayer : MonoBehaviour {
     private Coroutine logWaitCoroutine;
     private const float logWaitDuration = 0.5f;
 
-    private Dictionary<Type, Queue<GameObject>> pool;
+    private class PopupPool {
+
+        // associates FlexPopup subclasses with queues of Popups of only that FlexPopup type
+        private Dictionary<Type, Queue<FlexPopup>> flexPool;
+        // associates prefab instance id to 
+        private Dictionary<int, Queue<StrictPopup>> strictPool;
+
+        private int size;
+
+        public PopupPool() {
+
+            flexPool = new();
+            strictPool = new();
+
+            size = 0;
+
+        }
+
+        public bool Contains(Popup popup) {
+
+            Type type = popup.GetType();
+            int id = popup.GetInstanceID();
+
+            return (flexPool.ContainsKey(type) && flexPool[type].Count != 0)
+                || (strictPool.ContainsKey(id) && strictPool[id].Count != 0);
+
+        }
+
+        // try to get a pooled item of a specific Popup type 
+        // for type, pass in a child class of Popup (ex: PopupIcon)
+        // popups are dequeued on play, requeued when told to by the popup
+        // check that a Queue of that type exists in the pool dict, and that it has stuff in it. if so, give me something from it!!
+        public Popup Depool(Popup popup) {
+
+            Type type = popup.GetType();
+            int id = popup.GetInstanceID();
+
+            Popup ret = null;
+
+            if (popup is FlexPopup)
+                ret = flexPool.TryGetValue(type, out var typeQueue) && typeQueue.Count > 0
+                    ? typeQueue.Dequeue() : null;
+
+            else if (popup is StrictPopup strict)
+                ret = strictPool.TryGetValue(id, out var idQueue) && idQueue.Count > 0
+                    ? idQueue.Dequeue() : null;
+
+            if (ret)
+                size--;
+
+            return ret;
+
+        }
+
+        public void Push(Popup popup) {
+
+            if (popup is FlexPopup flex) {
+
+                // if this type hasnt been seen yet
+                if (!flexPool.TryGetValue(flex.Type, out var typeQueue))
+                    flexPool[flex.Type] = typeQueue = new();
+
+                typeQueue.Enqueue(popup as FlexPopup);
+
+            }
+
+            else if (popup is StrictPopup strict) {
+
+
+                // if this type hasnt been seen yet
+                if (!strictPool.TryGetValue(strict.Id, out var idQueue))
+                    strictPool[strict.Id] = idQueue = new();
+
+                idQueue.Enqueue(popup as StrictPopup);
+
+            }
+
+            size++;
+
+        }
+
+        public int Count {
+
+            get => size;
+
+        }
+
+    }
+    private static PopupPool pool;
 
     #region Pooling 
 
@@ -57,7 +165,7 @@ public class PopupPlayer : MonoBehaviour {
 
         Instance = this;
 
-        pool = new Dictionary<Type, Queue<GameObject>>();
+        pool = new();
         logs = new Stack<String>();
         trackedMaxSize = 0;
         timeSinceLastMax = 0;
@@ -84,7 +192,7 @@ public class PopupPlayer : MonoBehaviour {
             for (int i = 0; i < config.NumToSpawn; i++) {
 
                 Popup spawned = SpawnNewPopup(config.Popup);
-                Pool(spawned);
+                pool.Push(spawned);
                 spawned.gameObject.SetActive(false);
 
             }
@@ -97,40 +205,15 @@ public class PopupPlayer : MonoBehaviour {
 
         // destroy pooled objects when max pool size is reached, and log metrics
 
-        // don't waste time on any of Update if the pool is infinite and you doesn't want metrics
+        // don't waste time on any of Update if the pool is infinite and you don't want metrics
         // the null check on pool is mainly just because i don't want this to run with [AlwaysExecute], i just want OnValidate
         if (pool != null && (logMetrics || !infinitePool)) {
 
-            // get total pool size
-            // also figure out which type of popup has the most stuff in it
-            int poolSize = 0;
-            int maxPoolStackSize = 0;
-            Type maxPoolStackType = null;
+            if (logMetrics && pool.Count > trackedMaxSize) {
 
-            foreach (Type key in pool.Keys) {
+                trackedMaxSize = pool.Count;
 
-                int poolStackSize = pool[key].Count;
-
-                poolSize += poolStackSize;
-
-                if (poolStackSize > maxPoolStackSize) {
-
-                    maxPoolStackSize = poolStackSize;
-                    maxPoolStackType = key;
-
-                }
-            }
-
-            // if pool does not have inf size, the pool has surpassed the max pool size, and the Queue is not empty or missing for the most pool-hogging Type
-            // TODO: instead of removing from most pool-hogging type, find the type with the greatest % of popups not in use
-            if (!infinitePool && poolSize > maxPoolSize && maxPoolStackType != null && pool[maxPoolStackType].Count == 0)
-                StartCoroutine(QueueForDestruction(pool[maxPoolStackType].Dequeue()));
-
-            if (logMetrics && poolSize > trackedMaxSize) {
-
-                trackedMaxSize = poolSize;
-
-                logs.Push("<b>New max Popup pool size reached:</b> " + trackedMaxSize + ". Previous peak occured " + ("" + timeSinceLastMax).Substring(0, 4) + "s ago.");
+                logs.Push("<b>New max Popup pool size reached:</b> " + trackedMaxSize + ". Previous peak occured " + ("" + timeSinceLastMax).Substring(4) + "s ago.");
 
                 if (logWaitCoroutine == null)
                     logWaitCoroutine = StartCoroutine(WaitToLogMetrics());
@@ -169,49 +252,31 @@ public class PopupPlayer : MonoBehaviour {
 
     }
 
-    public static void Pool(Popup popup) {
-
-        Type key = popup.GetType();
-
-        if (Instance.pool.ContainsKey(key))
-            Instance.pool[key].Enqueue(popup.gameObject);
-        else {
-
-            Instance.pool.Add(key, new Queue<GameObject>());
-            Instance.pool[key].Enqueue(popup.gameObject);
-
-        }
-
-    }
-
-    // allows a Popup to finish playing then destroys it
-    private static IEnumerator QueueForDestruction(GameObject pooledItem) {
-
-        while (pooledItem.activeSelf == true)
-            yield return new WaitForEndOfFrame();
-
-        Destroy(pooledItem);
-
-    }
-
     // spawn and initialize a new Popup, then pool it. returns the spawned Popup. it is inactive by default
     private static Popup SpawnNewPopup(Popup popup) {
 
         Popup spawned = Instantiate(popup, Instance.poolParent.transform);
 
-        spawned.Initialize();
+        // set the passed in prefab to be the identifier for this strict popup instance
+        if (spawned is StrictPopup strict)
+            strict.SetId(popup);
 
-        //Pool(spawned);
+        spawned.Initialize();
 
         return spawned;
 
     }
+    public static void Pool(Popup popup) {
 
-    // try to get a pooled item of a specific Popup type 
-    // for type, pass in a child class of Popup (ex: PopupIcon)
-    // popups are dequeued on play, requeued when told to by the popup
-    // check that a Queue of that type exists in the pool dict, and that it has stuff in it. if so, give me something from it!!
-    private static Popup GetPooledItem(Type type) => Instance.pool.TryGetValue(type, out Queue<GameObject> typeQueue) && typeQueue.Count > 0 ? typeQueue.Dequeue().GetComponent<Popup>() : null;
+        // if this popup cannot be accomodated, get rid of it
+        // TODO: figure out better, faster system 
+        if (!Instance.infinitePool && pool.Count >= Instance.maxPoolSize)
+            Destroy(popup);
+        else
+            pool.Push(popup);
+
+
+    }
 
     #endregion
 
@@ -245,12 +310,15 @@ public class PopupPlayer : MonoBehaviour {
     //  popup is the only required field 
     private static Popup Play(Popup popup, Vector3? fixedPosition = null, GameObject target = null, float? overrideDuration = null, bool persistent = false) {
 
-        Popup toPlay = GetPooledItem(popup.GetType());
+        // tries to access popup from pool, returns null if none found 
+        // if flex popup, returns any popup of matching type
+        // if strict popup, returns any identical popup 
+        Popup toPlay = pool.Depool(popup);
 
         // got popup from pool
-        if (toPlay != null)
-            toPlay.SwapPopup(popup);
-        else
+        if (toPlay != null && toPlay is FlexPopup toModify)
+            toModify.SwapPopup(popup);
+        else if (toPlay == null)
             toPlay = SpawnNewPopup(popup);
 
         if (target != null)
@@ -261,6 +329,26 @@ public class PopupPlayer : MonoBehaviour {
         Instance.StartCoroutine(toPlay.HandlePlay(overrideDuration, target, persistent));
 
         return toPlay;
+
+    }
+
+    public static bool Stop(Popup popup) {
+
+        if (popup && popup.isActiveAndEnabled) {
+
+            popup.StopPlaying();
+            return true;
+
+        }
+
+        return false;
+
+    }
+
+    public static void Stop(ref Popup instance) {
+
+        Stop(instance);
+        instance = null;
 
     }
 
@@ -301,115 +389,6 @@ public class PopupPlayer : MonoBehaviour {
         }
     }
 #endif
-
-    #endregion
-
-    #region Playing (Legacy)
-
-    /*
-    // play a popup at a FIXED POSITION for a duration
-    // popup being played is returned to allow for manual pooling
-    public Popup Play(Popup popup, Vector3 position, float duration) {
-
-        Popup toPlay = GetPooledItem(popup.GetType());
-
-        // found available pooled item of the right type
-        if (toPlay != null)
-            toPlay.SwapPopup(popup);
-
-        else {
-
-            toPlay = Instantiate(popup, poolParent.transform);
-            toPlay.Initialize();
-            pool.Push(toPlay.gameObject);
-
-        }
-
-        toPlay.transform.position = position;
-        StartCoroutine(toPlay.HandlePlay(duration));
-
-        return toPlay;
-
-    }
-
-    // play a popup AT THE POSITION OF A TARGET for a duration
-    // popup being played is returned to allow for manual pooling
-    public Popup Play(Popup popup, GameObject target, float duration) {
-
-        Popup toPlay = GetPooledItem(popup.GetType());
-
-        // found available pooled item of the right type
-        if (toPlay != null)
-            toPlay.SwapPopup(popup);
-
-        else {
-
-            toPlay = Instantiate(popup, poolParent.transform);
-            toPlay.Initialize();
-            pool.Push(toPlay.gameObject);
-
-        }
-
-        toPlay.transform.position = target.transform.position;
-        StartCoroutine(toPlay.HandlePlay(target, duration));
-
-        return toPlay;
-
-    }
-
-    // play a popup at a FIXED POSITION for the default duration of the popup
-    // set persistent to true for manual pooling using Popup.Stop() (the popup will not automatically go away)
-    // popup being played is returned to allow for manual pooling
-    public Popup Play(Popup popup, Vector3 position, bool persistent) {
-
-        Popup toPlay = GetPooledItem(popup.GetType());
-
-        // found available pooled item of the right type
-        if (toPlay != null)
-            toPlay.SwapPopup(popup);
-
-        else {
-
-            toPlay = Instantiate(popup, poolParent.transform);
-            pool.Push(toPlay.gameObject);
-
-        }
-
-        toPlay.transform.position = position;
-        StartCoroutine(toPlay.HandlePlay(persistent));
-
-        return toPlay;
-
-    }
-
-
-    // play a popup AT THE POSITION OF A TARGET for the default duration of the popup
-    // set persistent to true for manual pooling using Popup.Stop() (the popup will not automatically go away)
-    // popup being played is returned to allow for manual pooling
-    public Popup Play(Popup popup, GameObject target, bool persistent) {
-
-        Popup toPlay = GetPooledItem(popup.GetType());
-
-        // found available pooled item of the right type
-        if (toPlay != null)
-            toPlay.SwapPopup(popup);
-
-        else {
-
-            toPlay = Instantiate(popup, poolParent.transform);
-            toPlay.Initialize();
-            pool.Push(toPlay.gameObject);
-
-        }
-
-        toPlay.transform.position = target.transform.position;
-
-        StartCoroutine(toPlay.HandlePlay(target, persistent));
-
-        return toPlay;
-
-    }
-    */
 
     #endregion
 

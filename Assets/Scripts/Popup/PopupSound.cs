@@ -3,7 +3,7 @@ using UnityEngine;
 using SFX;
 
 [ExecuteAlways, RequireComponent(typeof(AudioSource), typeof(AudioLowPassFilter))]
-public class PopupSound : Popup {
+public class PopupSound : FlexPopup {
 
 
     // this is the maximum value of the cutoff frequency in the Audio Low Pass Filter
@@ -122,7 +122,8 @@ public class PopupSound : Popup {
     // TODO: recode Popup to allow PopupSound to not have a duration field
     private void OnValidate() {
 
-        audioSource = GetComponent<AudioSource>();
+        if (!audioSource)
+            audioSource = GetComponent<AudioSource>();
         ForceSetDuration();
 
     }

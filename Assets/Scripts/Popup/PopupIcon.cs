@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PopupIcon : Popup {
+public class PopupIcon : FlexPopup {
 
     private SpriteRenderer spriteRenderer;
     private Animator anim;
