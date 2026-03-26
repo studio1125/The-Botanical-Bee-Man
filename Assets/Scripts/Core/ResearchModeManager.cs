@@ -1,5 +1,5 @@
 public class ResearchModeManager : BaseModeManager {
 
-    private new void Start() => base.Start();
+    public void ReturnToBuzzMode() => loadingManager.LoadScene(Constants.BUZZ_MODE_SCENE_NAME);
 
 }

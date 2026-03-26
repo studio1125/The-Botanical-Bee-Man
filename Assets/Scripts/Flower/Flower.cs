@@ -16,8 +16,8 @@ public class Flower : MonoBehaviour {
     [SerializeField, Tooltip("The range for the time it takes for the flower to regenerate nectar after its lifetime ends")] private Vector2 nectarRegenerationRange;
     [SerializeField, Tooltip("The range for the time it takes for the flower to regenerate nectar after player capture"), Min(0)] private Vector2 nectarRegenerationOnCaptureRange;
     [SerializeField, Tooltip("Radius player must be within of the flower to see pesticideCloseParticles"), Min(0)] private float pesticideViewRadius;
-    [SerializeField, Tooltip("chance to spawn with nectar"), Range(0, 1)] private float hasNectarOnSpawnChance;
-    [SerializeField, Tooltip("chance to spawn with nectar"), Range(0, 1)] private float hasPesticideChance;
+    [SerializeField, Tooltip("Chance to spawn with nectar"), Range(0, 1)] private float hasNectarOnSpawnChance;
+    [SerializeField, Tooltip("Chance to spawn with nectar"), Range(0, 1)] private float hasPesticideChance;
     private float pollinationTimer;
     private float damageTimer;
     private bool hasNectar;
@@ -41,21 +41,20 @@ public class Flower : MonoBehaviour {
         // TODO: make particles not sync (using simulate(), maybe random seed)
         // TODO: recode ParticlePopups 
 
-        player = FindAnyObjectByType<BeeController>();
+        player = FindFirstObjectByType<BeeController>();
 
         if (UnityEngine.Random.Range(0f, 1f) < hasNectarOnSpawnChance)
             ScheduleResetNectar(nectarRegenerationRange / 2); // the flower starts with nectar available
         else
             ScheduleResetNectar();
 
-        if (UnityEngine.Random.Range(0f, 1f) < hasPesticideChance) {
+        // spawn with pesticide based on chance and if the pesticide upgrade is not bought (if the upgrade is bought, pesticide will never spawn, but if it's not, pesticide can spawn with a certain chance)
+        if (!PlayerData.IsUpgradePurchased(UpgradeType.PesticideResistance) && UnityEngine.Random.Range(0f, 1f) < hasPesticideChance) {
 
             PopupPlayer.Play(pesticideFarPopup, pesticideTransform.position, true);
             hasPesticide = true;
 
-        }
-
-        else
+        } else
             hasPesticide = false;
 
         pollinationSlider.gameObject.SetActive(false); // hide the pollination slider at the start
@@ -64,7 +63,7 @@ public class Flower : MonoBehaviour {
 
     private void FixedUpdate() {
 
-        // show pesticide particles
+        // show pesticide particles 
         if (hasPesticide) {
 
             bool playerInRange = Vector2.Distance(player.transform.position, transform.position) < pesticideViewRadius;
