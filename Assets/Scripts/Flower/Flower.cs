@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using SFX;
 
 public class Flower : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private Slider pollinationSlider;
     private BeeController player;
+    private AudioPlayer audioPlayer;
 
     [Header("Settings")]
     [SerializeField, Tooltip("The time it takes for the flower to be fully pollinated")] private float pollinationTime;
@@ -33,6 +35,11 @@ public class Flower : MonoBehaviour {
     private Popup activePesticideClosePopup;
     [SerializeField] private Popup pesticideFarPopup;
 
+    [Header("Sounds")]
+    [SerializeField] private Sound pollinationSound;
+    [SerializeField] private Sound playerContactSound;
+
+
     [Header("Actions")]
     public Action<int> onPollinated; // action to be invoked when the flower is fully pollinated (passes the amount of nectar provided by the flower as an argument)
 
@@ -42,6 +49,7 @@ public class Flower : MonoBehaviour {
         // TODO: recode ParticlePopups 
 
         player = FindFirstObjectByType<BeeController>();
+        audioPlayer = FindFirstObjectByType<AudioPlayer>();
 
         if (UnityEngine.Random.Range(0f, 1f) < hasNectarOnSpawnChance)
             ScheduleResetNectar(nectarRegenerationRange / 2); // the flower starts with nectar available
@@ -54,7 +62,8 @@ public class Flower : MonoBehaviour {
             PopupPlayer.Play(pesticideFarPopup, pesticideTransform.position, true);
             hasPesticide = true;
 
-        } else
+        }
+        else
             hasPesticide = false;
 
         pollinationSlider.gameObject.SetActive(false); // hide the pollination slider at the start
@@ -96,8 +105,17 @@ public class Flower : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision) {
 
-        if (collision.CompareTag("Bee") && hasNectar) // check if the colliding object is a bee and if the flower has nectar available
+        if (collision.CompareTag("Bee") && hasNectar) {
+            // check if the colliding object is a bee and if the flower has nectar available
             pollinationSlider.value = 0f; // reset the slider value when the bee enters the flower
+
+            if (!player.HasSuper())
+                audioPlayer.Play(pollinationSound);
+
+        }
+        else if (collision.CompareTag("Bee"))
+            audioPlayer.Play(playerContactSound);
+
 
     }
 
@@ -148,6 +166,9 @@ public class Flower : MonoBehaviour {
         if (collision.CompareTag("Bee") && hasNectar) { // check if the colliding object is a bee and if the flower has nectar available
 
             CooldownManager.Resume(nectarLifetime);
+
+            audioPlayer.Stop(pollinationSound);
+            audioPlayer.Play(playerContactSound);
 
             damageTimer = 0f;
             pollinationTimer = 0f; // reset the timer when the bee leaves the flower

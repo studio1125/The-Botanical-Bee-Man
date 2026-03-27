@@ -275,7 +275,6 @@ public class PopupPlayer : MonoBehaviour {
         else
             pool.Push(popup);
 
-
     }
 
     #endregion
@@ -317,7 +316,7 @@ public class PopupPlayer : MonoBehaviour {
 
         // got popup from pool
         if (toPlay != null && toPlay is FlexPopup toModify)
-            toModify.SwapPopup(popup);
+            toModify.SwapPopup(popup as FlexPopup);
         else if (toPlay == null)
             toPlay = SpawnNewPopup(popup);
 

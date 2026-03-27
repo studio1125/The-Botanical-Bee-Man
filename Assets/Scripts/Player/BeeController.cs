@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
 using UnityEngine.UIElements;
+using SFX;
 
 public class BeeController : MonoBehaviour {
 
     [Header("References")]
     private Rigidbody2D rb;
     private BuzzUIManager ui;
+    private AudioPlayer audioPlayer;
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -37,14 +39,19 @@ public class BeeController : MonoBehaviour {
     [Header("Super Bumble ")]
     [SerializeField, Tooltip("Charge gained on pollinate flower, max 100")] private float superChargeOnPollinate;
     [SerializeField, Tooltip("Charge decay per second")] private float superChargeDecay;
-    [SerializeField] private float superDuration;
+    [SerializeField] private Cooldown superDuration;
     private float superCharge;
 
+    [Header("Sounds")]
+    [SerializeField] private Sound onHurtSound;
+    [SerializeField] private Sound onFinishPollinateSound;
+    [SerializeField] private Sound onSuperSound;
 
     private void Start() {
 
         rb = GetComponent<Rigidbody2D>();
         ui = FindAnyObjectByType<BuzzUIManager>();
+        audioPlayer = GetComponent<AudioPlayer>();
 
         FindAnyObjectByType<DataManager>().onNectarCollected += amount => OnPollinateFlower();
 
@@ -56,9 +63,15 @@ public class BeeController : MonoBehaviour {
     private void Update() {
         isHoldingMouseButton = Input.GetMouseButton(0);
 
+        // constantly decay charge when not full (full charge means super is active)
         if (superCharge != 100)
             superCharge = Mathf.Max(0, superCharge - (superChargeDecay * Time.deltaTime));
 
+        // reset super when the time is up 
+        if (CooldownManager.FulfillIfComplete(superDuration))
+            superCharge = 0;
+
+        // reflect changes to super charge in the ui 
         ui.UpdateSuperSlider(superCharge);
 
         UpdateSprite();
@@ -137,6 +150,9 @@ public class BeeController : MonoBehaviour {
 
     public void OnHurt(Vector2 kbDir) {
 
+        audioPlayer.Play(onHurtSound);
+        audioPlayer.Stop(onSuperSound);
+
         // apply kb to player
         rb.linearVelocity = Vector2.zero;
         rb.AddForce(kbDir.normalized * damageKb, ForceMode2D.Impulse);
@@ -152,16 +168,22 @@ public class BeeController : MonoBehaviour {
     }
     public void OnPollinateFlower() {
 
+        // update super charge
         superCharge = Mathf.Min(100, superCharge + superChargeOnPollinate);
-        if (superCharge == 100) // TODO: switch to cooldown
-            Invoke(nameof(ResetSuper), superDuration);
+
+        // play sound for super if super hasnt been initiated and charge is maxed
+        if (!CooldownManager.HasCooldown(superDuration) && superCharge == 100)
+            audioPlayer.Play(onSuperSound);
+
+        // initiate timer to reset super charge (once superDuration elapses, charge resets in Update())
+        if (superCharge == 100)
+            CooldownManager.TryStart(superDuration);
+
+        audioPlayer.Play(onFinishPollinateSound);
 
     }
 
-    private void ResetSuper() => superCharge = 0;
-
     public bool HasSuper() => superCharge >= 100;
-
 
     private void OnDrawGizmos() {
 

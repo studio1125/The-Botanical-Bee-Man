@@ -3,7 +3,7 @@ using UnityEngine;
 using SFX;
 
 [ExecuteAlways, RequireComponent(typeof(AudioSource), typeof(AudioLowPassFilter))]
-public class PopupSound : FlexPopup {
+public class PopupSound : StrictPopup {
 
 
     // this is the maximum value of the cutoff frequency in the Audio Low Pass Filter
@@ -54,7 +54,6 @@ public class PopupSound : FlexPopup {
         occlusionTickCounter = 0;
         ForceSetDuration();
 
-
         gameObject.name = "Popup Sound";
 
     }
@@ -68,53 +67,71 @@ public class PopupSound : FlexPopup {
     // check which key this PopupSound corresponds to in the SFXLib
     public Sound? GetKey() => key;
 
+
+
     // replace this's AudioSource
     // with the one from other
-    override public void SwapPopup(Popup other) {
+    /*    override public void SwapPopup(Popup other) {
 
-        if (other is not PopupSound) {
+            if (other is not PopupSound) {
 
-            Debug.Log("Failed to update Popup... Popup passed in must be a PopupSound");
-            return;
+                Debug.Log("Failed to update Popup... Popup passed in must be a PopupSound");
+                return;
 
-        }
+            }
 
-        PopupSound otherPopupSound = other as PopupSound;
-        AudioSource otherAudioSource = otherPopupSound.GetComponent<AudioSource>();
+            PopupSound otherPopupSound = other as PopupSound;
+            AudioSource otherAudioSource = otherPopupSound.GetComponent<AudioSource>();
 
-        duration = otherPopupSound.duration;
-        doOcclusion = otherPopupSound.doOcclusion;
-        // key is not swapped out here, it is assigned in AudioPlayer.Play
+            duration = otherPopupSound.duration;
+            doOcclusion = otherPopupSound.doOcclusion;
+            // key is not swapped out here, it is assigned in AudioPlayer.Play
 
-        audioSource.resource = otherAudioSource.resource;
-        audioSource.outputAudioMixerGroup = otherAudioSource.outputAudioMixerGroup;
-        audioSource.bypassEffects = otherAudioSource.bypassEffects;
-        audioSource.bypassListenerEffects = otherAudioSource.bypassListenerEffects;
-        audioSource.bypassReverbZones = otherAudioSource.bypassReverbZones;
-        audioSource.playOnAwake = otherAudioSource.playOnAwake;
-        audioSource.loop = otherAudioSource.loop;
-        audioSource.priority = otherAudioSource.priority;
-        audioSource.volume = otherAudioSource.volume;
-        audioSource.pitch = otherAudioSource.pitch;
-        audioSource.panStereo = otherAudioSource.panStereo;
-        audioSource.spatialBlend = otherAudioSource.spatialBlend;
-        audioSource.reverbZoneMix = otherAudioSource.reverbZoneMix;
-        audioSource.dopplerLevel = otherAudioSource.dopplerLevel;
-        audioSource.spread = otherAudioSource.spread;
-        audioSource.minDistance = otherAudioSource.minDistance;
-        audioSource.maxDistance = otherAudioSource.maxDistance;
-        audioSource.rolloffMode = otherAudioSource.rolloffMode;
-        defaultVol = otherAudioSource.volume;
+            audioSource.resource = otherAudioSource.resource;
+            audioSource.outputAudioMixerGroup = otherAudioSource.outputAudioMixerGroup;
+            audioSource.bypassEffects = otherAudioSource.bypassEffects;
+            audioSource.bypassListenerEffects = otherAudioSource.bypassListenerEffects;
+            audioSource.bypassReverbZones = otherAudioSource.bypassReverbZones;
+            audioSource.playOnAwake = otherAudioSource.playOnAwake;
+            audioSource.loop = otherAudioSource.loop;
+            audioSource.priority = otherAudioSource.priority;
+            audioSource.volume = otherAudioSource.volume;
+            audioSource.pitch = otherAudioSource.pitch;
+            audioSource.panStereo = otherAudioSource.panStereo;
+            audioSource.spatialBlend = otherAudioSource.spatialBlend;
+            audioSource.reverbZoneMix = otherAudioSource.reverbZoneMix;
+            audioSource.dopplerLevel = otherAudioSource.dopplerLevel;
+            audioSource.spread = otherAudioSource.spread;
+            audioSource.minDistance = otherAudioSource.minDistance;
+            audioSource.maxDistance = otherAudioSource.maxDistance;
+            audioSource.rolloffMode = otherAudioSource.rolloffMode;
+            defaultVol = otherAudioSource.volume;
 
-        owner = otherPopupSound.owner;
+            owner = otherPopupSound.owner;
 
-    }
+        }*/
     protected override void OnFinish() {
 
-        base.OnFinish();
+        audioSource.Stop();
+        audioSource.time = 0;
 
         if (owner != null)
             owner.OnSoundComplete(this);
+
+        base.OnFinish();
+
+    }
+
+    protected override void OnPlay() {
+
+        base.OnPlay();
+
+        audioSource.time = 0;
+
+        if (audioSource.isActiveAndEnabled) // TODO: this is a lazy fix for a bug, for some reason it keeps saying its playing from a disabled source
+            audioSource.Play();
+
+        ForceSetDuration(); // redundant failsafe
 
     }
 
@@ -131,7 +148,7 @@ public class PopupSound : FlexPopup {
     private void ForceSetDuration() {
 
         if (audioSource.resource != null)
-            duration = ((AudioClip)audioSource.resource).length;
+            duration = ((AudioClip)audioSource.resource).length * 0.99f;
         else
             duration = 0;
 

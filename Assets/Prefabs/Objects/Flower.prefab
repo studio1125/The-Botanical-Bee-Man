@@ -208,15 +208,15 @@ RectTransform:
   m_GameObject: {fileID: 1891488351722393517}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.020428993, z: 2.0428994}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.006, y: 0.006128698, z: 0.61286986}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2232019428741604307}
   m_Father: {fileID: 7247821491399408654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.5, y: 2.53}
+  m_AnchoredPosition: {x: 0.1, y: 0.53}
   m_SizeDelta: {x: 150, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1278308487419960822
@@ -307,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 3083360569651324549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.32, y: -1.99, z: 0}
+  m_LocalPosition: {x: -0.1, y: -0.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -325,6 +325,7 @@ GameObject:
   - component: {fileID: 718506677993907722}
   - component: {fileID: 5628342146112339555}
   - component: {fileID: 4111365847155013032}
+  - component: {fileID: 1281895120632261400}
   m_Layer: 0
   m_Name: Flower
   m_TagString: Untagged
@@ -342,8 +343,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6, y: 3, z: 0}
-  m_LocalScale: {x: 0.3012955, y: 0.3012955, z: 0.3012955}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1, y: 1, z: 3.3333333}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8404773898082772997}
   - {fileID: 7849939251241431386}
@@ -430,15 +431,17 @@ MonoBehaviour:
   nectarAmount: 5
   nectarRegenerationRange: {x: 4, y: 8}
   nectarRegenerationOnCaptureRange: {x: 15, y: 20}
-  pesticideViewRadius: 3.75
+  pesticideViewRadius: 4
   hasNectarOnSpawnChance: 0.4
-  hasPesticideChance: 0.35
+  hasPesticideChance: 0.3
   nectarTransform: {fileID: 1647335637090808153}
   nectarPopup: {fileID: 9127311413403610775, guid: 76fab8dd674295c47a98724ca065fc19, type: 3}
   nectarExpirePopup: {fileID: 9127311413403610775, guid: f280f6586ad10c94093683a25b5c68df, type: 3}
   pesticideTransform: {fileID: 7849939251241431386}
   pesticideClosePopup: {fileID: 4129157214927448655, guid: 712d7754f543f1240ac027910f181f0f, type: 3}
   pesticideFarPopup: {fileID: 2734564473628483166, guid: 688a0b5be49e6d144a12f383faffc597, type: 3}
+  pollinationSound: 2
+  playerContactSound: 1
 --- !u!58 &4111365847155013032
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -473,8 +476,20 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.3, y: 1.1932714}
-  m_Radius: 1.4806567
+  m_Offset: {x: 0.06, y: 0.33}
+  m_Radius: 0.35
+--- !u!114 &1281895120632261400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3817474781612725389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7be6f1ab43efd74f90a10be906d53e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioPlayer
 --- !u!1 &5261289134857844189
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +515,7 @@ Transform:
   m_GameObject: {fileID: 5261289134857844189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 0.91, z: 0}
+  m_LocalPosition: {x: 0.08, y: 0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

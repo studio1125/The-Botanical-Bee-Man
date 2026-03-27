@@ -495,7 +495,7 @@ public class CooldownManager : MonoBehaviour {
     /// </summary>
     /// <param name="cooldown"></param>
     /// <param name="paused"></param>
-    /// <returns>time in seconds the cooldown has left to run. 0 if null (or complete) </returns>
+    /// <returns>time in seconds the cooldown has left to run. 0 if complete (or null) </returns>
     public static float TimeRemaining(Cooldown cooldown) {
 
         if (HasCooldown(cooldown))

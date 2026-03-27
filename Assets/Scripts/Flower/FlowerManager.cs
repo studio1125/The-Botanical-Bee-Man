@@ -38,6 +38,9 @@ public class FlowerManager : MonoBehaviour {
     [SerializeField] List<ObjectSpawnRegion> grids;
     [SerializeField, Min(0), Tooltip("For editor")] int displayedGridIdx;
 
+    [Header("Debug")]
+    [SerializeField, Range(0, 0.5f), Tooltip("For gizmo")] private float gridDotSize;
+
     private void Start() {
 
         dataManager = FindFirstObjectByType<DataManager>();
@@ -181,7 +184,7 @@ public class FlowerManager : MonoBehaviour {
 
         for (float x = xo; x < xf; x += dx)
             for (float y = yo; y < yf; y += dy)
-                Gizmos.DrawSphere(new Vector2(x, y), 0.2f);
+                Gizmos.DrawWireSphere(new Vector2(x, y), gridDotSize);
 
     }
 
