@@ -6,7 +6,6 @@ using SFX;
 public class Flower : MonoBehaviour {
 
     [Header("References")]
-    [SerializeField] private Slider pollinationSlider;
     private BeeController player;
     private AudioPlayer audioPlayer;
 
@@ -66,8 +65,6 @@ public class Flower : MonoBehaviour {
         else
             hasPesticide = false;
 
-        pollinationSlider.gameObject.SetActive(false); // hide the pollination slider at the start
-
     }
 
     private void FixedUpdate() {
@@ -107,7 +104,7 @@ public class Flower : MonoBehaviour {
 
         if (collision.CompareTag("Bee") && hasNectar) {
             // check if the colliding object is a bee and if the flower has nectar available
-            pollinationSlider.value = 0f; // reset the slider value when the bee enters the flower
+            player.PollinationSliderValue = 0f; // reset the slider value when the bee enters the flower
 
             if (!player.HasSuper())
                 audioPlayer.Play(pollinationSound);
@@ -127,11 +124,11 @@ public class Flower : MonoBehaviour {
                 CooldownManager.Pause(nectarLifetime);
 
                 // activate slider if it's not already active (in case the bee entered the flower and then stayed without triggering OnTriggerEnter2D again)
-                if (!pollinationSlider.gameObject.activeSelf)
-                    pollinationSlider.gameObject.SetActive(true);
+                if (!player.PollinationSliderActive)
+                    player.PollinationSliderActive = true;
 
                 pollinationTimer += Time.deltaTime;
-                pollinationSlider.value = pollinationTimer / pollinationTime; // update the slider to show the pollination progress
+                player.PollinationSliderValue = pollinationTimer / pollinationTime; // update the slider to show the pollination progress
 
                 if (player.HasSuper() || pollinationTimer >= pollinationTime) { // check if the bee has been pollinating the flower for long enough to fully pollinate it (or player has super)
 
@@ -172,7 +169,7 @@ public class Flower : MonoBehaviour {
 
             damageTimer = 0f;
             pollinationTimer = 0f; // reset the timer when the bee leaves the flower
-            pollinationSlider.gameObject.SetActive(false); // hide the pollination slider when the bee leaves the flower
+            player.PollinationSliderActive = false; // hide the pollination slider when the bee leaves the flower
 
         }
     }
@@ -194,8 +191,8 @@ public class Flower : MonoBehaviour {
         hasNectar = false; // mark as not having pollen
         pollinationTimer = 0f; // reset timers
         damageTimer = 0f;
-        pollinationSlider.value = 0; // reset slider
-        pollinationSlider.gameObject.SetActive(false); // disable slider
+        player.PollinationSliderValue = 0; // reset slider
+        player.PollinationSliderActive = false; // disable slider
 
 
     }

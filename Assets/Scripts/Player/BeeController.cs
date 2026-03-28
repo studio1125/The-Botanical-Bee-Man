@@ -1,14 +1,18 @@
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 using SFX;
 
 public class BeeController : MonoBehaviour {
 
     [Header("References")]
+    [SerializeField] private GameObject pollinationSliderCanvasHolder;
+    [SerializeField] private Slider pollinationSlider;
+    [SerializeField] private GameObject sprite;
     private Rigidbody2D rb;
     private BuzzUIManager ui;
     private AudioPlayer audioPlayer;
+
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -27,7 +31,6 @@ public class BeeController : MonoBehaviour {
     }
 
     [Header("Visual")]
-    [SerializeField] private GameObject sprite;
     [SerializeField] private LookMode lookMode;
 
     [Header("Taking Damage")]
@@ -53,6 +56,8 @@ public class BeeController : MonoBehaviour {
         ui = FindAnyObjectByType<BuzzUIManager>();
         audioPlayer = GetComponent<AudioPlayer>();
 
+        PollinationSliderActive = false; // slider is initially hidden
+
         FindAnyObjectByType<DataManager>().onNectarCollected += amount => OnPollinateFlower();
 
         currMoveSpeed = moveSpeed;
@@ -74,7 +79,7 @@ public class BeeController : MonoBehaviour {
         // reflect changes to super charge in the ui 
         ui.UpdateSuperSlider(superCharge);
 
-        UpdateSprite();
+        UpdateSpriteAndCanvasLocation();
 
     }
 
@@ -119,9 +124,9 @@ public class BeeController : MonoBehaviour {
 
     }
 
-    private void UpdateSprite() {
+    private void UpdateSpriteAndCanvasLocation() {
 
-        sprite.transform.position = transform.position;
+        sprite.transform.position = pollinationSliderCanvasHolder.transform.position = transform.position;
 
         switch (lookMode) {
 
@@ -190,4 +195,22 @@ public class BeeController : MonoBehaviour {
             Gizmos.DrawLine(transform.position, (Vector2)transform.position + (0.3f * rb.linearVelocity));
 
     }
+
+    public bool PollinationSliderActive {
+
+        get => pollinationSlider.gameObject.activeSelf;
+
+        set => pollinationSlider.gameObject.SetActive(value);
+
+    }
+
+    public float PollinationSliderValue {
+
+        get => pollinationSlider.value;
+
+        set => pollinationSlider.value = value;
+
+    }
+
+
 }

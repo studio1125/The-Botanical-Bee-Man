@@ -14,7 +14,7 @@ public class MusicPlayer : MonoBehaviour {
 
     private void Start() => audioPlayer = GetComponent<AudioPlayer>();
 
-    private void Update() {
+    private void FixedUpdate() {
 
         if (playlist.Count == 0)
             return;
