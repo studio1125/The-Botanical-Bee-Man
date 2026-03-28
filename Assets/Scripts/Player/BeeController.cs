@@ -144,8 +144,6 @@ public class BeeController : MonoBehaviour {
 
         }
 
-
-
     }
 
     public void OnHurt(Vector2 kbDir) {

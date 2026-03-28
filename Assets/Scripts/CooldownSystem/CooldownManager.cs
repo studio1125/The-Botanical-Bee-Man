@@ -287,9 +287,9 @@ public class CooldownManager : MonoBehaviour {
         // check if cooldown exists alredy, if so then access its associated ActiveCooldown 
         Instance.cooldowns[cooldown.UpdateFrequency].TryGetValue(cooldown, out ActiveCooldown instance);
 
-        // only create new if existing one is null 
-        instance ??= Instance.cooldowns[cooldown.UpdateFrequency][cooldown] = GetActiveCooldownInstance(cooldown);
-
+        // only run new cd if existing one is null 
+        if (instance == null)
+            instance = Instance.cooldowns[cooldown.UpdateFrequency][cooldown] = GetActiveCooldownInstance(cooldown);
 
     }
 

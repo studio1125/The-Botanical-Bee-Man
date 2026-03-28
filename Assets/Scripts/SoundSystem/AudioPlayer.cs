@@ -32,7 +32,8 @@ public class AudioPlayer : MonoBehaviour {
     /// <param name="stopCurrentMatch"></param>
     /// <param name="looping"></param>
     /// <param name="target"></param>
-    public void Play(Sound sound, bool stopCurrentMatch = false, bool looping = false, GameObject target = null) {
+    /// <returns>duration of sound played</returns>
+    public float Play(Sound sound, bool stopCurrentMatch = false, bool looping = false, GameObject target = null) {
 
         // get the popup prefab
         PopupSound toPlay = sfx.GetPopup(sound);
@@ -54,9 +55,13 @@ public class AudioPlayer : MonoBehaviour {
             // consider removing the key field in PopupSound and rely entirely on SFXLib.GetKey();
             playing.SetKey(sound);
 
+            return playing.Duration;
+
         }
         else
             Debug.LogError($"SFXLib: No PopupSound defined for SFXLib.Sounds.{sound}.");
+
+        return -1;
 
     }
 
@@ -96,5 +101,10 @@ public class AudioPlayer : MonoBehaviour {
     /// </summary>
     /// <returns></returns>
     public List<PopupSound> Playing() => new List<PopupSound>(currentlyPlaying);
+
+    /// <summary>
+    /// </summary>
+    /// <returns>true if this player is playing anything</returns>
+    public bool IsPlayingAudio() => currentlyPlaying.Count == 0;
 
 }

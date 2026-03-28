@@ -154,6 +154,12 @@ public class PopupSound : StrictPopup {
 
     }
 
+    public float Duration {
+
+        get => duration;
+
+    }
+
 
 #if UNITY_EDITOR
 

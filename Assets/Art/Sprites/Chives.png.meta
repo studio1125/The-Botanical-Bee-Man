@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 51d70ada18fa0804882cb129c6432ddd
+guid: e37681e070db2bc42bdaed26562a0a49
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3373568495408583166
-    second: Flower_0
+      213: -8752605098425753469
+    second: Chives_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Flower_0
+      name: Chives_0
       rect:
         serializedVersion: 2
-        x: 78
-        y: 2
-        width: 277
-        height: 416
+        x: 32
+        y: 0
+        width: 420
+        height: 339
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ef117423ca251de20800000000000000
-      internalID: 3373568495408583166
+      spriteID: 3806f094900888680800000000000000
+      internalID: -8752605098425753469
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Flower_0: 3373568495408583166
+      Chives_0: -8752605098425753469
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
