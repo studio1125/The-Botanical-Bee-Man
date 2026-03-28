@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6719a6fd772ae014d9f289bc9eefcef2, type: 3}
+  m_Name: GardenExpansion
+  m_EditorClassIdentifier: Assembly-CSharp::Upgrade
+  type: 2
+  icon: {fileID: 21300000, guid: cb3ad90b5692485448bd8e6fe4287f92, type: 3}
+  siteName: Urban Harvest
+  url: https://www.urbanharvest.org/expand-your-garden
+  siteTitle: How to Expand Your Garden for Greater Yields
+  description: Expanding your garden creates more space for plants and supports a
+    healthier ecosystem. Increases the size of your garden, allowing for more growth
+    and activity.
+  conciseDescription: Increases the size of your garden
+  stage: 0

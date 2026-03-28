@@ -34,6 +34,7 @@ public class UpgradeData : ScriptableObject {
 public enum UpgradeType {
 
     PesticideResistance,
-    TrashRemoval
+    TrashRemoval,
+    GardenExpansion
 
 }

@@ -3,17 +3,42 @@ using UnityEngine;
 public class BuzzModeManager : BaseModeManager {
 
     [Header("References")]
-    [SerializeField] private BoxCollider2D mapBounds;
+    [SerializeField] private Vector2 mapBounds;
 
     [Header("Settings")]
     [SerializeField, Tooltip("Amount of seconds in a day")] private float dayDuration;
+    [SerializeField, Tooltip("Multiplier for the size of the garden grid (used for the garden expansion upgrade)")] private float gardenSizeMultiplier;
     private int currentDay;
     private float timeRemaining;
     private bool isDayOver;
 
+    [Header("Bounds")]
+    [SerializeField] private Transform topBound;
+    [SerializeField] private Transform leftBound;
+    [SerializeField] private Transform bottomBound;
+    [SerializeField] private Transform rightBound;
+
     private new void Start() {
 
         base.Start();
+
+        // apply the garden expansion multiplier to the map bounds if the upgrade is purchased (done in Awake so the map bounds are set correctly before any other scripts access them)
+        if (PlayerData.IsUpgradePurchased(UpgradeType.GardenExpansion))
+            mapBounds *= gardenSizeMultiplier;
+
+        // now that bounds are fully adjusted, position and scale the boundary objects based on the map bounds (the boundary objects are scaled to be as long as the map bounds in their respective directions, and positioned just outside the map bounds so they effectively act as invisible walls around the map)
+
+        topBound.position = new Vector2(0f, (mapBounds.y / 2f) + (topBound.localScale.y / 2f));
+        topBound.localScale = new Vector2(mapBounds.x, topBound.localScale.y);
+
+        leftBound.position = new Vector2(-mapBounds.x / 2f - (leftBound.localScale.x / 2f), 0f);
+        leftBound.localScale = new Vector2(leftBound.localScale.x, mapBounds.y);
+
+        bottomBound.position = new Vector2(0f, -mapBounds.y / 2f - (bottomBound.localScale.y / 2f));
+        bottomBound.localScale = new Vector2(mapBounds.x, bottomBound.localScale.y);
+
+        rightBound.position = new Vector2(mapBounds.x / 2f + (rightBound.localScale.x / 2f), 0f);
+        rightBound.localScale = new Vector2(rightBound.localScale.x, mapBounds.y);
 
         timeRemaining = dayDuration;
         currentDay = 1;
@@ -41,7 +66,15 @@ public class BuzzModeManager : BaseModeManager {
         }
     }
 
-    public BoxCollider2D GetMapBounds() => mapBounds;
+    private void OnDrawGizmos() {
+
+        // draw the map bounds as a wire cube in the scene view for visualization (centered at the origin with the specified map bounds as its size)
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(Vector2.zero, new Vector2(mapBounds.x, mapBounds.y));
+
+    }
+
+    public Vector2 GetMapBounds() => mapBounds;
 
     public float GetDayDuration() => dayDuration;
 

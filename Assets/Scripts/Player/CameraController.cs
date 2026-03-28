@@ -12,7 +12,6 @@ public class CameraController : MonoBehaviour {
     private float zOffset;
 
     [Header("Bounds")]
-    private BoxCollider2D mapBounds;
     private float xMin, yMin, xMax, yMax;
     private float camSize;
     private float camRatio;
@@ -23,14 +22,13 @@ public class CameraController : MonoBehaviour {
         gameManager = FindFirstObjectByType<BuzzModeManager>();
         camera = GetComponent<Camera>();
 
-        mapBounds = gameManager.GetMapBounds();
-
         zOffset = transform.position.z - target.position.z;
 
-        xMin = mapBounds.bounds.min.x;
-        yMin = mapBounds.bounds.min.y;
-        xMax = mapBounds.bounds.max.x;
-        yMax = mapBounds.bounds.max.y;
+        Vector2 mapBounds = gameManager.GetMapBounds();
+        xMin = mapBounds.x / -2f;
+        yMin = mapBounds.y / -2f;
+        xMax = mapBounds.x / 2f;
+        yMax = mapBounds.y / 2f;
 
         camSize = camera.orthographicSize;
         camRatio = ((float) Screen.width / Screen.height) * camSize;
