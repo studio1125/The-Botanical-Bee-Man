@@ -8,7 +8,6 @@ public class BuzzModeManager : BaseModeManager {
     [Header("Settings")]
     [SerializeField, Tooltip("Amount of seconds in a day")] private float dayDuration;
     [SerializeField, Tooltip("Multiplier for the size of the garden grid (used for the garden expansion upgrade)")] private float gardenSizeMultiplier;
-    private int currentDay;
     private float timeRemaining;
     private bool isDayOver;
 
@@ -41,7 +40,6 @@ public class BuzzModeManager : BaseModeManager {
         rightBound.localScale = new Vector2(rightBound.localScale.x, mapBounds.y);
 
         timeRemaining = dayDuration;
-        currentDay = 1;
 
     }
 
@@ -53,9 +51,8 @@ public class BuzzModeManager : BaseModeManager {
         if (timeRemaining <= 0f) {
 
             isDayOver = true; // set the isDayOver flag to true to indicate that the day has ended
-            currentDay++;
             timeRemaining = 0f; // reset the time remaining to ensure it doesn't go negative
-            loadingManager.LoadScene(Constants.RESEARCH_MODE_SCENE_NAME); // load the research mode scene at the end of the day
+            loadingManager.LoadScene(Constants.RESEARCH_MODE_SCENE_NAME, funFactDatabase.GetRandomFunFact(), dataManager.GetNectarCollected()); // load the research mode scene at the end of the day
 
             // don't update the day text here; it is only updated when the player returns to buzz mode after the research mode scene is loaded (so in the Start method)
 
@@ -75,10 +72,6 @@ public class BuzzModeManager : BaseModeManager {
     }
 
     public Vector2 GetMapBounds() => mapBounds;
-
-    public float GetDayDuration() => dayDuration;
-
-    public int GetCurrentDay() => currentDay;
 
     public float GetTimeRemaining() => timeRemaining;
 

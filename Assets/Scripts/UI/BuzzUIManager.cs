@@ -31,7 +31,7 @@ public class BuzzUIManager : BaseUIManager {
         dataManager = FindFirstObjectByType<DataManager>();
 
         dataManager.onNectarCollected += UpdateNectarText; // subscribe to the onNectarCollected action to update the nectar text when nectar is collected
-        dayText.text = $"Day {gameManager.GetCurrentDay()}"; // update the day text to show the current day at the start of the buzz mode
+        dayText.text = $"Day {PlayerData.GetCurrentDay()}"; // update the day text to show the current day at the start of the buzz mode
 
     }
 

@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class BaseUIManager : MonoBehaviour {
 
+    // IMPORTANT: this only works when the root is visible
     protected void RefreshLayout(RectTransform root) {
 
         foreach (LayoutGroup layoutGroup in root.GetComponentsInChildren<LayoutGroup>())

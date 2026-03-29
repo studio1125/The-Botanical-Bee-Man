@@ -5,6 +5,7 @@ using UnityEngine;
 public class FlowerManager : MonoBehaviour {
 
     [Header("References")]
+    [SerializeField] private Transform objectParent; // parent object to hold all spawned objects for organization
     private BuzzModeManager buzzModeManager;
     private DataManager dataManager;
 
@@ -93,7 +94,7 @@ public class FlowerManager : MonoBehaviour {
     // spawns a flower (and subscribes to its pollination event)
     GameObject SpawnObject(Vector2 loc, ObjectSpawnRegion owner) {
 
-        GameObject obj = Instantiate(owner.spawns[UnityEngine.Random.Range(0, owner.spawns.Count)], loc, Quaternion.identity); // spawn a flower at a specific position
+        GameObject obj = Instantiate(owner.spawns[UnityEngine.Random.Range(0, owner.spawns.Count)], loc, Quaternion.identity, objectParent); // spawn a flower at a specific position
         owner.spawned.Add(obj);
 
         if (owner.randomizeFacingDirection && UnityEngine.Random.Range(0f, 1f) < 0.5f)

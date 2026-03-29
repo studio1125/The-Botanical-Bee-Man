@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3130808877707493110
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8274286361742758158}
+  - component: {fileID: 6644693220286883705}
+  m_Layer: 0
+  m_Name: FunFactDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8274286361742758158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130808877707493110}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6644693220286883705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3130808877707493110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c78f3469548ae2b44bec77ce71d4f008, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FunFactDatabase
+  funFacts:
+  - The decline of bee populations worldwide is a major concern for biodiversity
+    and food security, as it threatens the pollination of many plants that are crucial
+    for ecosystems and agriculture.
+  - In addition to their ecological importance, bees also produce honey, which has
+    been used by humans for thousands of years as a sweetener and for its medicinal
+    properties.
+  - Bees have a special structure called the "pollen basket" on their hind legs,
+    which they use to collect and transport pollen back to the hive.
+  - A single honeybee can visit up to 5,000 flowers in a day, and a hive of bees
+    can pollinate millions of flowers in a season.
+  - To produce just one pound of honey, a hive of bees has to embark on an incredible
+    journey, traveling over 55,000 miles and visiting around two million flowers.

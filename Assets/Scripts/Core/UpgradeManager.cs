@@ -114,6 +114,7 @@ public class UpgradeManager : MonoBehaviour {
 
     }
 
+    // IMPORTANT: this only works when the root is visible
     private void RefreshLayout(RectTransform root) {
 
         foreach (LayoutGroup layoutGroup in root.GetComponentsInChildren<LayoutGroup>())
