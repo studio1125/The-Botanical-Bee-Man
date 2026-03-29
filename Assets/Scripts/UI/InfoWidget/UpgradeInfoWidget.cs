@@ -10,6 +10,7 @@ public class UpgradeInfoWidget : MonoBehaviour {
     [SerializeField] private Image upgradeIcon;
     [SerializeField] private TMP_Text nameText;
     [SerializeField] private TMP_Text descriptionText;
+    [SerializeField] private TMP_Text nectarCostText;
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
     private RectTransform canvasRect;
@@ -35,6 +36,7 @@ public class UpgradeInfoWidget : MonoBehaviour {
         upgradeIcon.sprite = upgradeData.GetIcon();
         nameText.text = upgradeData.GetSiteName();
         descriptionText.text = upgradeData.GetConciseDescription();
+        nectarCostText.text = upgradeData.GetNectarCost().ToString();
 
         StartCoroutine(Fade(1f, fadeDuration)); // fade the widget in to full opacity
 

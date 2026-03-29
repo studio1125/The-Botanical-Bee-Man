@@ -37,6 +37,10 @@ public class LoadingManager : MonoBehaviour {
         loadingPercentText.text = "100%"; // set the loading percent text to 100% at the start of the new scene to indicate that the new scene is fully loaded
 
         funFactText.text = TempStorage.GetCurrentFunFact(); // set the fun fact text to the current fun fact stored in TempStorage (which was set when the loading screen was shown in the previous scene)
+
+        loadingScreen.gameObject.SetActive(true); // show the loading screen while the new scene continues loading in the background
+        loadingScreen.alpha = 1f; // make the loading screen fully visible immediately after activating it
+
         RefreshLayout(content); // refresh the layout of the loading screen content to ensure the fun fact text is properly aligned after updating the text
 
     }

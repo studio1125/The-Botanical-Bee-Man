@@ -21,3 +21,4 @@ MonoBehaviour:
     Switch to safer alternatives. Removes all pesticide hazards from your garden.
   conciseDescription: Removes all pesticide hazards from your garden.
   stage: 0
+  nectarCost: 50

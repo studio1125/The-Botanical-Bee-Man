@@ -22,3 +22,4 @@ MonoBehaviour:
     and activity.
   conciseDescription: Increases the size of your garden
   stage: 0
+  nectarCost: 50

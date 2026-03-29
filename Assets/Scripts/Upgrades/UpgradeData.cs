@@ -12,6 +12,7 @@ public class UpgradeData : ScriptableObject {
     [SerializeField] private string description; // e.g. "Speedtest is better with the app. Download the Speedtest app for more metrics, video testing, mobile coverage maps, and more..."
     [SerializeField] private string conciseDescription; // this is what will be shown on the upgrade info widget; it should be a shorter version of the description that gives the player information on EXACTLY what the upgrade does in the context of the game
     [SerializeField, Min(0)] private int stage; // the stage at which this upgrade becomes available; this is used to keep a balanced order of upgrades (stage zero is the first stage)
+    [SerializeField] private int nectarCost; // the amount of nectar required to purchase this upgrade
 
     public UpgradeType GetUpgradeType() => type;
 
@@ -28,6 +29,8 @@ public class UpgradeData : ScriptableObject {
     public string GetConciseDescription() => conciseDescription;
 
     public int GetStage() => stage;
+
+    public int GetNectarCost() => nectarCost;
 
 }
 

@@ -13,8 +13,10 @@ public class UpgradeManager : MonoBehaviour {
     [SerializeField] private RectTransform upgradeContent; // the parent transform for the upgrade buttons (e.g. a vertical layout group)
     [SerializeField] private Button nextButton;
     private ResearchModeManager researchModeManager;
+    private DataManager dataManager;
 
     [Header("Settings")]
+    [SerializeField] private string[] searchBarTexts;
     [SerializeField] private int maxResultsToShow; // the maximum number of upgrade results to show at once (shown upgrades will be less than this if there are not enough unbought upgrades to reach the max)
     private int currentStage; // the current stage of the game, used to determine which upgrades are available to show
 
@@ -24,6 +26,7 @@ public class UpgradeManager : MonoBehaviour {
     private void Start() {
 
         researchModeManager = FindFirstObjectByType<ResearchModeManager>();
+        dataManager = FindFirstObjectByType<DataManager>();
 
         nextButton.onClick.AddListener(OnNextButtonClicked);
 
@@ -38,6 +41,8 @@ public class UpgradeManager : MonoBehaviour {
                 maxStage = stage;
 
         }
+
+        searchText.text = searchBarTexts[Random.Range(0, searchBarTexts.Length)]; // set the search bar text to a random string from the list of search bar texts
 
         availableUpgradesByStage = new List<UpgradeData>[maxStage + 1];
 
@@ -96,9 +101,11 @@ public class UpgradeManager : MonoBehaviour {
 
     public bool PurchaseUpgrade(UpgradeData upgrade) {
 
-        // TODO: return false if player cannot afford the upgrade (not enough nectar)
+        // check if the player has enough nectar to purchase the upgrade; if not, return false to indicate the purchase was unsuccessful
+        if (dataManager.GetNectarCollected() < upgrade.GetNectarCost()) return false;
 
         availableUpgradesByStage[upgrade.GetStage()].Remove(upgrade); // remove the upgrade from the available upgrades list for its stage
+        dataManager.RemoveNectar(upgrade.GetNectarCost()); // remove the nectar cost of the upgrade from the player's total nectar
         PlayerData.AddUpgrade(upgrade);
         return true;
 
