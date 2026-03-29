@@ -21,6 +21,9 @@ public class BuzzUIManager : BaseUIManager {
 
     [Header("Super HUD")]
     [SerializeField] private Slider superChargeSlider;
+    [SerializeField] private Image superChargeSliderFill;
+    [SerializeField] private Sprite superChargeSliderInProgressFill;
+    [SerializeField] private Sprite superChargeSliderCompleteFill;
 
     [Header("Settings")]
     [SerializeField] private float textLerpDuration;
@@ -58,7 +61,15 @@ public class BuzzUIManager : BaseUIManager {
 
     }
 
-    public void UpdateSuperSlider(float percent) => superChargeSlider.value = percent;
+    public void UpdateSuperSlider(float percent) {
+
+        superChargeSlider.value = percent;
+
+        if (superChargeSlider.value == superChargeSlider.maxValue)
+            superChargeSliderFill.sprite = superChargeSliderCompleteFill;
+        else
+            superChargeSliderFill.sprite = superChargeSliderInProgressFill;
+    }
 
     private IEnumerator HandleTextLerp(TMP_Text text, float targetValue, float lerpDuration) {
 

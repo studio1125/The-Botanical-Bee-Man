@@ -47,6 +47,8 @@ public class FlowerManager : MonoBehaviour {
     // spawns all flowers based on grid config and spawn chance
     private void SpawnObjects() {
 
+        int orderInLayer = 0;
+
         Vector2 mapBounds = buzzModeManager.GetMapBounds();
 
         foreach (ObjectSpawnRegion grid in grids) {
@@ -69,12 +71,17 @@ public class FlowerManager : MonoBehaviour {
 
             }
 
-            for (float x = xo; x < xf; x += dx)
+            for (float x = xo; x < xf; x += dx) {
+
                 for (float y = yo; y < yf; y += dy)
                     if (UnityEngine.Random.Range(0f, 1f) < grid.objSpawnChance)
                         SpawnObject(new Vector2(x + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset),
                                                 y + UnityEngine.Random.Range(-grid.objPositionOffset, grid.objPositionOffset)),
-                                                grid);
+                                                grid).GetComponent<SpriteRenderer>().sortingOrder = orderInLayer;
+
+                orderInLayer++;
+
+            }
 
         }
     }
