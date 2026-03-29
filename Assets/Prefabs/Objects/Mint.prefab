@@ -118,7 +118,7 @@ MonoBehaviour:
   nectarRegenerationOnCaptureRange: {x: 15, y: 20}
   pesticideViewRadius: 1.25
   hasNectarOnSpawnChance: 0.5
-  hasPesticideChance: 0.3
+  hasPesticideChance: 0.25
   nectarTransform: {fileID: 2262892687713027891}
   nectarPopup: {fileID: 9127311413403610775, guid: 76fab8dd674295c47a98724ca065fc19, type: 3}
   nectarExpirePopup: {fileID: 9127311413403610775, guid: f280f6586ad10c94093683a25b5c68df, type: 3}

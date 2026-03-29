@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using SFX;
 
 public class UpgradeManager : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class UpgradeManager : MonoBehaviour {
     [SerializeField] private Button nextButton;
     private ResearchModeManager researchModeManager;
     private DataManager dataManager;
+    private AudioPlayer audioPlayer;
 
     [Header("Settings")]
     [SerializeField] private string[] searchBarTexts;
@@ -23,10 +25,15 @@ public class UpgradeManager : MonoBehaviour {
     [Header("Data")]
     private List<UpgradeData>[] availableUpgradesByStage;
 
+    [Header("Sounds")]
+    [SerializeField] private Sound purchaseSound;
+    [SerializeField] private Sound purchaseFailSound;
+
     private void Start() {
 
         researchModeManager = FindFirstObjectByType<ResearchModeManager>();
         dataManager = FindFirstObjectByType<DataManager>();
+        audioPlayer = GetComponent<AudioPlayer>();
 
         nextButton.onClick.AddListener(OnNextButtonClicked);
 
@@ -102,11 +109,17 @@ public class UpgradeManager : MonoBehaviour {
     public bool PurchaseUpgrade(UpgradeData upgrade) {
 
         // check if the player has enough nectar to purchase the upgrade; if not, return false to indicate the purchase was unsuccessful
-        if (dataManager.GetNectarCollected() < upgrade.GetNectarCost()) return false;
+        if (dataManager.GetNectarCollected() < upgrade.GetNectarCost()) {
+
+            audioPlayer.Play(purchaseFailSound, target: Camera.main.gameObject);
+            return false;
+
+        }
 
         availableUpgradesByStage[upgrade.GetStage()].Remove(upgrade); // remove the upgrade from the available upgrades list for its stage
         dataManager.RemoveNectar(upgrade.GetNectarCost()); // remove the nectar cost of the upgrade from the player's total nectar
         PlayerData.AddUpgrade(upgrade);
+        audioPlayer.Play(purchaseSound, target: Camera.main.gameObject);
         return true;
 
     }

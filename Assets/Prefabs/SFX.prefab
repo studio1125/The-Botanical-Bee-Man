@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6326958184833548075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6490827704725582522}
+  - component: {fileID: 8065327681607585722}
+  m_Layer: 0
+  m_Name: SFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6490827704725582522
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326958184833548075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8065327681607585722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6326958184833548075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 229559572e3fc274c9c8843ab503836d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SFXLib
+  soundDict:
+  - label: 3
+    key: 2
+    sounds:
+    - {fileID: 7472597503551530258, guid: c6a5cbbb11744ac48b11cf065702e719, type: 3}
+  - label: 3
+    key: 5
+    sounds:
+    - {fileID: 7472597503551530258, guid: ba9b153520cec1048a2de3aac4e4e21f, type: 3}
+  - label: 3
+    key: 4
+    sounds:
+    - {fileID: 7472597503551530258, guid: 60645a53eac993f40a48fd570c3e72a9, type: 3}
+  - label: 3
+    key: 3
+    sounds:
+    - {fileID: 7472597503551530258, guid: 9a8470127645e96409246bb43ffd8092, type: 3}
+    - {fileID: 7472597503551530258, guid: f82023662dee3b44998f15d7cef345c5, type: 3}
+  - label: 6
+    key: 6
+    sounds:
+    - {fileID: 7472597503551530258, guid: dd2393610eb5018409e04b639c3b4948, type: 3}
+  - label: 7
+    key: 8
+    sounds:
+    - {fileID: 7472597503551530258, guid: e0a92645bc7d09c4cbeb73da5a5e388a, type: 3}
+  - label: 7
+    key: 7
+    sounds:
+    - {fileID: 7472597503551530258, guid: 1c7027724c1362f4a81c19719c3fa201, type: 3}
+  - label: 6
+    key: 9
+    sounds:
+    - {fileID: 7472597503551530258, guid: f8b280ce6f6f2674aa021fc68daea2ae, type: 3}
+  - label: 0
+    key: 1
+    sounds:
+    - {fileID: 7472597503551530258, guid: f63612fa4172dce418d4ac86a7f1c3bb, type: 3}
+    - {fileID: 7472597503551530258, guid: f301b6cc0d83d014fb2ae346df9d7227, type: 3}
+    - {fileID: 7472597503551530258, guid: 7f94c198ce0e77e47a883b96eb83e174, type: 3}
+    - {fileID: 7472597503551530258, guid: 674ac6abf2eabcc48a09c09a10c105ce, type: 3}
+    - {fileID: 7472597503551530258, guid: f5d14053cdfc9b6429b154d1d0cdb227, type: 3}
+  - label: 0
+    key: 0
+    sounds:
+    - {fileID: 7472597503551530258, guid: 070610e0a1d84a84896346bf25ca7e83, type: 3}
+  hasErrors: 0

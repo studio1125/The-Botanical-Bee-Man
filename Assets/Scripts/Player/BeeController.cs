@@ -8,11 +8,10 @@ public class BeeController : MonoBehaviour {
     [Header("References")]
     [SerializeField] private GameObject pollinationSliderCanvasHolder;
     [SerializeField] private Slider pollinationSlider;
-    [SerializeField] private GameObject sprite;
+    [SerializeField] private SpriteRenderer sprite;
     private Rigidbody2D rb;
     private BuzzUIManager ui;
     private AudioPlayer audioPlayer;
-
 
     [Header("Movement")]
     [SerializeField] private float moveSpeed;
@@ -122,11 +121,13 @@ public class BeeController : MonoBehaviour {
         if (rb.linearVelocity.magnitude > currMoveSpeed)
             rb.linearVelocity = rb.linearVelocity.normalized * currMoveSpeed;
 
+        UpdateSpriteRotation(direction);
+
     }
 
-    private void UpdateSpriteAndCanvasLocation() {
+    private void UpdateSpriteAndCanvasLocation() => sprite.transform.position = pollinationSliderCanvasHolder.transform.position = transform.position;
 
-        sprite.transform.position = pollinationSliderCanvasHolder.transform.position = transform.position;
+    private void UpdateSpriteRotation(Vector2 dir) {
 
         switch (lookMode) {
 
@@ -135,13 +136,10 @@ public class BeeController : MonoBehaviour {
                 break;
 
             case LookMode.Flip:
-
-                sprite.transform.rotation = Quaternion.Euler(Vector3.zero);
-
-                if (transform.rotation.eulerAngles.z > 0)
-                    sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, -sprite.transform.localScale.y);
+                if (dir.x > 0)
+                    sprite.transform.rotation = Quaternion.Euler(0, 0, 0);
                 else
-                    sprite.transform.localScale = new Vector3(sprite.transform.localScale.x, sprite.transform.localScale.y);
+                    sprite.transform.rotation = Quaternion.Euler(0, 180, 0);
                 break;
 
             default:
@@ -150,6 +148,7 @@ public class BeeController : MonoBehaviour {
         }
 
     }
+
 
     public void OnHurt(Vector2 kbDir) {
 

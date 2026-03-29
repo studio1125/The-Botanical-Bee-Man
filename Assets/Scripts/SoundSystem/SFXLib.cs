@@ -16,7 +16,10 @@ namespace SFX {
         OnFinishPollinate,
         OnHurt,
         OnSuper,
-        BuzzMusic
+        BuzzMusic,
+        Success,
+        Fail,
+        ResearchMusic
 
         // note to self: consider reworking audioplayer to use one global audioplayer? just make it even more plug and play
 
@@ -31,7 +34,8 @@ namespace SFX {
         Player,
         Bow,
         Misc,
-        Music
+        Music,
+        UI
 
     }
 
