@@ -31,6 +31,8 @@ public class FlowerManager : MonoBehaviour {
 
     [Header("Spawn Regions (\"Grids\")")]
     [SerializeField] List<ObjectSpawnRegion> grids;
+    private int orderInLayer = 0;
+
 
     private void Start() {
 
@@ -40,14 +42,14 @@ public class FlowerManager : MonoBehaviour {
         foreach (ObjectSpawnRegion grid in grids)
             grid.spawned = new List<GameObject>();
 
+        orderInLayer = 0; // adds layering to objects based on spawn order
+
         SpawnObjects(); // spawn the flowers at the start of the game
 
     }
 
     // spawns all flowers based on grid config and spawn chance
     private void SpawnObjects() {
-
-        int orderInLayer = 0;
 
         Vector2 mapBounds = buzzModeManager.GetMapBounds();
 
