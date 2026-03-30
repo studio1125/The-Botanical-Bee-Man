@@ -66,6 +66,10 @@ MonoBehaviour:
     key: 6
     sounds:
     - {fileID: 7472597503551530258, guid: dd2393610eb5018409e04b639c3b4948, type: 3}
+  - label: 6
+    key: 10
+    sounds:
+    - {fileID: 7472597503551530258, guid: bc065f93387f92b449d01445825954bc, type: 3}
   - label: 7
     key: 8
     sounds:
@@ -74,10 +78,6 @@ MonoBehaviour:
     key: 7
     sounds:
     - {fileID: 7472597503551530258, guid: 1c7027724c1362f4a81c19719c3fa201, type: 3}
-  - label: 6
-    key: 9
-    sounds:
-    - {fileID: 7472597503551530258, guid: f8b280ce6f6f2674aa021fc68daea2ae, type: 3}
   - label: 0
     key: 1
     sounds:
@@ -90,4 +90,8 @@ MonoBehaviour:
     key: 0
     sounds:
     - {fileID: 7472597503551530258, guid: 070610e0a1d84a84896346bf25ca7e83, type: 3}
+  - label: 0
+    key: 9
+    sounds:
+    - {fileID: 7472597503551530258, guid: f8b280ce6f6f2674aa021fc68daea2ae, type: 3}
   hasErrors: 0
