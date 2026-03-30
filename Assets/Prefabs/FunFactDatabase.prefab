@@ -45,15 +45,61 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FunFactDatabase
   funFacts:
-  - The decline of bee populations worldwide is a major concern for biodiversity
-    and food security, as it threatens the pollination of many plants that are crucial
-    for ecosystems and agriculture.
-  - In addition to their ecological importance, bees also produce honey, which has
-    been used by humans for thousands of years as a sweetener and for its medicinal
-    properties.
-  - Bees have a special structure called the "pollen basket" on their hind legs,
-    which they use to collect and transport pollen back to the hive.
-  - A single honeybee can visit up to 5,000 flowers in a day, and a hive of bees
-    can pollinate millions of flowers in a season.
-  - To produce just one pound of honey, a hive of bees has to embark on an incredible
-    journey, traveling over 55,000 miles and visiting around two million flowers.
+  - '"I hate bees, so I was happy to see a headline saying bee populations are declining!
+    Then I read the article, and apparently bees are necessary for biodiversity and
+    food security. I think I can come to terms with bees."'
+  - '"When I have a sore throat, I swallow some honey to soothe it. Whoever it was
+    thousands of years ago that found out honey is not just great in coffee but is
+    medicinal... that''s the GOAT."'
+  - '"Bees eat pollen for protein! Can you believe that!? And get this. Pollination
+    is accidental! I can''t even be that helpful on purpose!"'
+  - '"I could never be a bee. They go to, like, thousands of flowers a day, but my
+    allergies wouldn''t allow for that." '
+  - '"I love that I can get produce from the local garden, because it doesn''t have
+    the carbon footprint of imported produce. That said, apparently bees travel tens
+    of thousands of miles to produce a pound of honey? Thankfully they don''t have
+    methane farts."'
+  - '"I''m so glad that the local garden comes to the farmer''s market every week.
+    I feel much more attached to my neighbors and the food I eat. It''s all familiar
+    with the same dirt!"'
+  - '"After finding out that fresh local produce can be more nutritious and fresh
+    than the big-box stuff, I don''t think I''ll ever go back to a normal grocery
+    store. Except Costco. I love Costco."'
+  - '"No one talks about the carbon emissions of landfills, and it drives me nuts!
+    I tell everyone to get their produce from the local garden because there''s less
+    packaging waste. Plus, theres so much food waste that happens before food reaches
+    the store, that doesn''t happen with local produce!"'
+  - '"I would love to volunteer or work at the local garden. That kind of work gives
+    me a sense of purpose."'
+  - '"At the grocery store, I get so distracted and end up buying twice what I came
+    for... and most of it is junk! But at my local farmer''s market, I get what I
+    need, and I know it''s gonna be good. I replaced chips with the local garden''s
+    sunflower seeds, plus a little salt!"'
+  - '"At the grocery store, I get so distracted and end up buying twice what I came
+    for... and most of it is junk! But at my local farmer''s market, I get what I
+    need, and I know it''s gonna be good. I replaced chips with the local garden''s
+    sunflower seeds, plus a little salt!"'
+  - '"As a public planner, It''s great to be able to trace where all the local produce
+    comes from in case anything goes wrong."'
+  - '"I knew the guy who started our local garden. I swear he has the best tomatoes
+    in the world. I don''t even like tomatoes."'
+  - '"I know it''s not actually bad, but I don''t like that the apples at the store
+    are coated in wax. It just sounds weird! No such thing at my neighbor''s garden,
+    though."'
+  - '"I love walkable cities, which is why I wanted to move here. The weekly farmer''s
+    market sealed the deal for me."'
+  - '"I like my local garden because when the produce is in season, it''s cheaper
+    than the grocery store. I don''t bother when it''s out of season because of the
+    emissions."'
+  - '"I don''t mind that my local garden charges a little higher than the grocery
+    store. I like that the money is going to a kind person next door instead of some
+    suits that don''t care about me."'
+  - '"I love bees so much!! Did you know that we would go extinct without them??????
+    Yeah! Yeah! So next time you get stung by a bee, THANK IT FOR ITS SERVICE!!!!"'
+  - '"Bees are so cute! They actually dance to communicate."'
+  - '"If bees can smell 50 times better than dogs, why don''t cops start using bees
+    instead?"'
+  - '"Appparently male bees only exist to mate. I don''t have anything interesting
+    to add to that."'
+  - '"Someone told me scientists use bees to measure ecosystem health. I thought
+    they just made honey and stung people."'
