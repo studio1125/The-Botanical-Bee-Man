@@ -15,6 +15,7 @@ public class FlowerManager : MonoBehaviour {
         [Header("Spawning")]
         [SerializeField, Tooltip("Equal chance of spawning any listed object")] public List<GameObject> spawns;
         [SerializeField] public bool isFlowerGrid;
+        [SerializeField] public bool isTrashGrid;
         [SerializeField, Range(0, 1)] public float objSpawnChance;
         [SerializeField, Min(0), Tooltip("Adds a bit of randomness to flower pos")] public float objPositionOffset;
         [HideInInspector] public List<GameObject> spawned; // list to hold the instantiated flower objects
@@ -55,8 +56,8 @@ public class FlowerManager : MonoBehaviour {
 
         foreach (ObjectSpawnRegion grid in grids) {
 
-            if (PlayerData.IsUpgradePurchased(UpgradeType.TrashRemoval) && !grid.isFlowerGrid)
-                continue; // skip non-flower grids if the player has the trash removal upgrade
+            if (PlayerData.IsUpgradePurchased(UpgradeType.TrashRemoval) && grid.isTrashGrid)
+                continue; // skip spawning for trash grids if the player has the trash removal upgrade
 
             float dx = grid.gridWidthDelta;
             float xo = -mapBounds.x / 2f;

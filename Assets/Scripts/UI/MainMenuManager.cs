@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class MainMenuManager : MonoBehaviour {
 
     [Header("References")]
+    [SerializeField] private RectTransform mainMenu;
     [SerializeField] private Button playButton;
     [SerializeField] private Button creditsButton;
     [SerializeField] private Button quitButton;
@@ -49,6 +50,8 @@ public class MainMenuManager : MonoBehaviour {
         creditsSection.gameObject.SetActive(false);
         creditsSection.alpha = 0f;
 
+        RefreshLayout(mainMenu); // refresh the layout to ensure everything is positioned correctly at the start
+
     }
 
     private void OpenTutorial() {
@@ -57,6 +60,8 @@ public class MainMenuManager : MonoBehaviour {
 
         if (menuFadeCoroutine != null) StopCoroutine(menuFadeCoroutine); // stop any existing fade coroutine to prevent conflicts
         menuFadeCoroutine = StartCoroutine(FadeMenu(tutorialSection, 1f, tutorialFadeDuration));
+
+        RefreshLayout(tutorialSection.GetComponent<RectTransform>()); // refresh the layout to ensure everything is positioned correctly
 
         isTutorialVisible = true;
 
@@ -79,6 +84,8 @@ public class MainMenuManager : MonoBehaviour {
 
         if (menuFadeCoroutine != null) StopCoroutine(menuFadeCoroutine); // stop any existing fade coroutine to prevent conflicts
         menuFadeCoroutine = StartCoroutine(FadeMenu(creditsSection, 1f, creditsFadeDuration));
+
+        RefreshLayout(creditsSection.GetComponent<RectTransform>()); // refresh the layout to ensure everything is positioned correctly
 
         isCreditsVisible = true;
 
@@ -122,6 +129,16 @@ public class MainMenuManager : MonoBehaviour {
             canvasGroup.gameObject.SetActive(false);
 
         menuFadeCoroutine = null; // reset the coroutine reference when done
+
+    }
+
+    // IMPORTANT: this only works when the root is visible
+    protected void RefreshLayout(RectTransform root) {
+
+        foreach (LayoutGroup layoutGroup in root.GetComponentsInChildren<LayoutGroup>())
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(root); // force a rebuild of the root layout at the end
 
     }
 }

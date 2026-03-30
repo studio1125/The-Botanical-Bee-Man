@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: b89031e185a3eba4e9b89066704194b6
+  - enabled: 1
     path: Assets/Scenes/BuzzMode.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
