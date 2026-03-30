@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cf3a2424802864285cd5ac7af95b37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PopupParticles
-  duration: 0.41
+  duration: 0.35
 --- !u!199 &1507629937576539550
 ParticleSystemRenderer:
   serializedVersion: 7
@@ -135,7 +135,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1522960320034303470}
   serializedVersion: 8
-  lengthInSec: 0.41
+  lengthInSec: 0.35
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
