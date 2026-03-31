@@ -4,6 +4,7 @@ public class BuzzModeManager : BaseModeManager {
 
     [Header("References")]
     [SerializeField] private Vector2 mapBounds;
+    [SerializeField] private GameObject waterFountain;
 
     [Header("Settings")]
     [SerializeField, Tooltip("Amount of seconds in a day")] private float dayDuration;
@@ -21,9 +22,11 @@ public class BuzzModeManager : BaseModeManager {
 
         base.Start();
 
-        // apply the garden expansion multiplier to the map bounds if the upgrade is purchased (done in Awake so the map bounds are set correctly before any other scripts access them)
+        // apply the garden expansion multiplier to the map bounds if the upgrade is purchased
         if (PlayerData.IsUpgradePurchased(UpgradeType.GardenExpansion))
             mapBounds *= gardenSizeMultiplier;
+
+        waterFountain.SetActive(PlayerData.IsUpgradePurchased(UpgradeType.ExtendedSuper)); // make the water fountain visible if the player has the extended super upgrade
 
         // now that bounds are fully adjusted, position and scale the boundary objects based on the map bounds (the boundary objects are scaled to be as long as the map bounds in their respective directions, and positioned just outside the map bounds so they effectively act as invisible walls around the map)
 

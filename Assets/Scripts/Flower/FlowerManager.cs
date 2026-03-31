@@ -16,6 +16,7 @@ public class FlowerManager : MonoBehaviour {
         [SerializeField, Tooltip("Equal chance of spawning any listed object")] public List<GameObject> spawns;
         [SerializeField] public bool isFlowerGrid;
         [SerializeField] public bool isTrashGrid;
+        [SerializeField] public bool isNativeSpeciesGrid;
         [SerializeField, Range(0, 1)] public float objSpawnChance;
         [SerializeField, Min(0), Tooltip("Adds a bit of randomness to flower pos")] public float objPositionOffset;
         [HideInInspector] public List<GameObject> spawned; // list to hold the instantiated flower objects
@@ -55,6 +56,9 @@ public class FlowerManager : MonoBehaviour {
         Vector2 mapBounds = buzzModeManager.GetMapBounds();
 
         foreach (ObjectSpawnRegion grid in grids) {
+
+            if (grid.isNativeSpeciesGrid && !PlayerData.IsUpgradePurchased(UpgradeType.NativeSpecies))
+                continue; // skip spawning for native species grids if the player doesn't have the native species upgrade
 
             if (PlayerData.IsUpgradePurchased(UpgradeType.TrashRemoval) && grid.isTrashGrid)
                 continue; // skip spawning for trash grids if the player has the trash removal upgrade
