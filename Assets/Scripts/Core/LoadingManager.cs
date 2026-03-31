@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,6 +20,7 @@ public class LoadingManager : MonoBehaviour {
     [SerializeField] private Slider loadingSlider;
     [SerializeField] private TMP_Text loadingPercentText;
     [SerializeField] private TMP_Text funFactText;
+    [SerializeField] private TMP_Text continueText;
     private AsyncOperation currSceneOperation;
     private Coroutine fadeCoroutine;
 
@@ -27,6 +29,7 @@ public class LoadingManager : MonoBehaviour {
     [SerializeField] private float blackScreenFadeDuration;
     [SerializeField] private float blackScreenVisibleDuration; // how long the black screen should stay fully visible before fading out to reveal the loading screen (in seconds)
     [SerializeField, Tooltip("Minimum time to show the loading screen (in seconds)")] private float minLoadingTime;
+    private bool sceneLoaded;
 
     private void Awake() {
 
@@ -37,12 +40,23 @@ public class LoadingManager : MonoBehaviour {
         loadingPercentText.text = "100%"; // set the loading percent text to 100% at the start of the new scene to indicate that the new scene is fully loaded
 
         funFactText.text = TempStorage.GetCurrentFunFact(); // set the fun fact text to the current fun fact stored in TempStorage (which was set when the loading screen was shown in the previous scene)
+        continueText.gameObject.SetActive(false); // hide the continue text at the start of the new scene
 
         loadingScreen.gameObject.SetActive(true); // show the loading screen while the new scene continues loading in the background
         loadingScreen.alpha = 1f; // make the loading screen fully visible immediately after activating it
 
         RefreshLayout(content); // refresh the layout of the loading screen content to ensure the fun fact text is properly aligned after updating the text
 
+    }
+
+    private void Update() {
+
+        if (currSceneOperation != null && sceneLoaded && Input.anyKeyDown) { // if the continue text is active and the player presses any key, allow the scene to activate
+
+            currSceneOperation.allowSceneActivation = true;
+            sceneLoaded = false; // reset the scene loaded flag for the next time a scene is loaded
+
+        }
     }
 
     public void LoadScene(string sceneName, string funFact, int nectarCollected) {
@@ -123,12 +137,22 @@ public class LoadingManager : MonoBehaviour {
 
         }
 
-        currSceneOperation.allowSceneActivation = true; // allow the new scene to activate once it's finished loading
+        //currSceneOperation.allowSceneActivation = true; // allow the new scene to activate once it's finished loading
 
-        while (!currSceneOperation.isDone) { // wait until the new scene is fully loaded
+        // wait until the new scene is fully loaded (though it won't be marked as done since allowSceneActivation is false, but the progress will reach 0.9 when the scene is fully loaded)
+        while (currSceneOperation.progress < 0.9f)
+            yield return null;
 
-            loadingSlider.value = Mathf.Lerp(0.9f, 1f, currSceneOperation.progress / 0.9f); // lerp the slider value from 0.9 to 1 based on the progress of the scene loading (currSceneOperation.progress goes from 0 to 0.9 as the scene loads, and then jumps to 1 when the scene is fully loaded)
-            loadingPercentText.text = Mathf.RoundToInt(loadingSlider.value * 100f) + "%"; // update the loading percent text to show the current slider value as a percentage
+        sceneLoaded = true; // set the scene loaded flag to true once the scene is fully loaded
+
+        loadingSlider.value = 1f; // set the slider value to 100% when the scene is fully loaded
+        loadingPercentText.text = "100%"; // update the loading percent text to show 100% when the scene is fully loaded
+
+        continueText.gameObject.SetActive(true); // show the continue text
+
+        while (true) {
+
+            continueText.alpha = Mathf.PingPong(Time.time, 1f); // make the continue text fade in and out repeatedly
             yield return null;
 
         }

@@ -38,7 +38,7 @@ public class BeeController : MonoBehaviour {
     [SerializeField, Tooltip("% that rotation speed will be set to after being damaged"), Range(0, 2)] private float damageRotSpeedPenalty;
     [SerializeField, Tooltip("How long to keep reduced move speed")] private Cooldown damageSpeedPenaltyDuration;
 
-    [Header("Super Bumble ")]
+    [Header("Super Bumble")]
     [SerializeField, Tooltip("Charge gained on pollinate flower, max 100")] private float superChargeOnPollinate;
     [SerializeField, Tooltip("Charge decay per second")] private float superChargeDecay;
     [SerializeField] private Cooldown superDuration;
@@ -213,7 +213,7 @@ public class BeeController : MonoBehaviour {
 
         Gizmos.color = Color.red;
         if (rb)
-            Gizmos.DrawLine(transform.position, (Vector2)transform.position + (0.3f * rb.linearVelocity));
+            Gizmos.DrawLine(transform.position, (Vector2) transform.position + (0.3f * rb.linearVelocity));
 
     }
 

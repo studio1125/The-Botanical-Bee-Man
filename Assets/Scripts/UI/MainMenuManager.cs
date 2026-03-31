@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // doesn't inherit from BaseUIManager because the main menu is a separate kind of UI
@@ -103,7 +104,12 @@ public class MainMenuManager : MonoBehaviour {
     }
 
     // TODO: edit the 0 nectar collected value to reflect the player's actual progress if they return to the main menu after playing
-    private void LoadBuzzMode() => loadingManager.LoadScene(Constants.BUZZ_MODE_SCENE_NAME, funFactDatabase.GetRandomFunFact(), 0); // load buzz mode with a random fun fact and 0 nectar collected since the player hasn't played yet
+    private void LoadBuzzMode() {
+
+        loadingManager.LoadScene(Constants.BUZZ_MODE_SCENE_NAME, funFactDatabase.GetRandomFunFact(), 0); // load buzz mode with a random fun fact and 0 nectar collected since the player hasn't played yet
+        EventSystem.current.SetSelectedGameObject(null); // clear the selected game object to prevent any UI navigation issues when the new scene loads
+
+    }
 
     private void Quit() => Application.Quit();
 
