@@ -2,45 +2,33 @@ using UnityEngine;
 using SFX;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
+using Unity.VisualScripting;
 
 [RequireComponent(typeof(AudioPlayer))]
 public class MusicPlayer : MonoBehaviour {
 
-    [SerializeField] private List<Sound> playlist;
+    [SerializeField] private Sound song;
 
     private AudioPlayer audioPlayer;
-    private Cooldown currentSongWait;
-    int playingIdx = 0;
 
-    private void Start() => audioPlayer = GetComponent<AudioPlayer>();
+    private void Start() {
 
-    private void FixedUpdate() {
+        audioPlayer = GetComponent<AudioPlayer>();
 
-        if (playlist.Count == 0)
-            return;
+        audioPlayer.Play(song);
 
-        // reset count
-        if (playingIdx >= playlist.Count)
-            playingIdx = 0;
-
-        // if not playing song, play a song and set it as being played
-        if (!CooldownManager.HasCooldown(currentSongWait)) {
-
-            float songDuration = audioPlayer.Play(playlist[playingIdx]);
-
-            CooldownManager.TryMakeStart(ref currentSongWait, songDuration);
-
-        }
-        if (CooldownManager.FulfillIfComplete(currentSongWait)) {
-
-            //audioPlayer.Stop(playlist[playingIdx]); //failsafe
-            playingIdx++; // next tick will play next song
-
-        }
+        Invoke(nameof(RepeatTrack), audioPlayer.Playing()[0].Duration);
 
     }
 
 
+    private void RepeatTrack() {
 
+        audioPlayer.Play(song);
+
+        Invoke(nameof(RepeatTrack), audioPlayer.Playing()[0].Duration);
+
+    }
 
 }
