@@ -21,4 +21,4 @@ MonoBehaviour:
     diversity. Introduces new types of flowers into your garden.
   conciseDescription: Introduces new types of flowers into your garden
   stage: 1
-  nectarCost: 50
+  nectarCost: 200

@@ -21,4 +21,4 @@ MonoBehaviour:
     space clean and safe. Removes all trash obstacles from your garden.
   conciseDescription: Removes all trash obstacles from your garden
   stage: 0
-  nectarCost: 50
+  nectarCost: 100

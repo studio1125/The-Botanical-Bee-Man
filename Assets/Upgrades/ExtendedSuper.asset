@@ -21,4 +21,4 @@ MonoBehaviour:
     energy during foraging. Extends the duration of your super ability.
   conciseDescription: Extends the duration of your super ability
   stage: 1
-  nectarCost: 50
+  nectarCost: 150

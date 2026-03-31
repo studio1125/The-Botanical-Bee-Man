@@ -21,4 +21,4 @@ MonoBehaviour:
     bloom longer. Flowers remain pollinatable for a longer period of time.
   conciseDescription: Flowers remain pollinatable for a longer period of time
   stage: 0
-  nectarCost: 50
+  nectarCost: 100
