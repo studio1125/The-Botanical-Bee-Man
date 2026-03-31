@@ -49,6 +49,12 @@ public class BeeController : MonoBehaviour {
     [SerializeField] private Sound onFinishPollinateSound;
     [SerializeField] private Sound onSuperSound;
 
+    [Header("Popups")]
+    [SerializeField] private Popup debuffPopup;
+    [SerializeField] private GameObject debuffPopupLocation;
+    [SerializeField] private Popup superPopup;
+    private Popup activeSuperPopup;
+
     private void Start() {
 
         rb = GetComponent<Rigidbody2D>();
@@ -67,13 +73,21 @@ public class BeeController : MonoBehaviour {
     private void Update() {
         isHoldingMouseButton = Input.GetMouseButton(0);
 
-        // constantly decay charge when not full (full charge means super is active)
-        if (superCharge != 100)
-            superCharge = Mathf.Max(0, superCharge - (superChargeDecay * Time.deltaTime));
-
         // reset super when the time is up 
         if (CooldownManager.FulfillIfComplete(superDuration))
             superCharge = 0;
+
+        // constantly decay charge when not full (full charge means super is active)
+        if (superCharge != 100) {
+
+            if (activeSuperPopup)
+                PopupPlayer.Stop(ref activeSuperPopup);
+
+            superCharge = Mathf.Max(0, superCharge - (superChargeDecay * Time.deltaTime));
+
+
+        }
+
 
         // reflect changes to super charge in the ui 
         ui.UpdateSuperSlider(superCharge);
@@ -165,6 +179,7 @@ public class BeeController : MonoBehaviour {
         currMoveSpeed = moveSpeed * damageMoveSpeedPenalty;
         currRotationSpeed = rotationSpeed * damageRotSpeedPenalty;
         // restart if already running
+        PopupPlayer.Play(debuffPopup, targetObj: debuffPopupLocation, damageSpeedPenaltyDuration.Duration);
         CooldownManager.ForceStart(damageSpeedPenaltyDuration);
 
     }
@@ -178,8 +193,15 @@ public class BeeController : MonoBehaviour {
             audioPlayer.Play(onSuperSound);
 
         // initiate timer to reset super charge (once superDuration elapses, charge resets in Update())
-        if (superCharge == 100)
+        if (superCharge == 100) {
+
             CooldownManager.TryStart(superDuration);
+
+            if (!activeSuperPopup)
+                activeSuperPopup = PopupPlayer.Play(superPopup, sprite.gameObject, true);
+
+        }
+
 
         audioPlayer.Play(onFinishPollinateSound);
 

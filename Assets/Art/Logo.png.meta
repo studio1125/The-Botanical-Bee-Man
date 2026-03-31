@@ -47,6 +47,21 @@ TextureImporter:
   - first:
       213: -8074770578077153683
     second: Logo_14
+  - first:
+      213: -6159489392364382447
+    second: Logo_15
+  - first:
+      213: -4536293588464031748
+    second: Logo_16
+  - first:
+      213: -2080403533957981334
+    second: Logo_17
+  - first:
+      213: 4557605079627867692
+    second: Logo_18
+  - first:
+      213: -59867036688880149
+    second: Logo_19
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -158,10 +173,10 @@ TextureImporter:
       name: Logo_0
       rect:
         serializedVersion: 2
-        x: 68
-        y: 111
-        width: 51
-        height: 33
+        x: 269
+        y: 435
+        width: 174
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +195,10 @@ TextureImporter:
       name: Logo_1
       rect:
         serializedVersion: 2
-        x: 116
-        y: 109
-        width: 27
-        height: 31
+        x: 461
+        y: 437
+        width: 87
+        height: 110
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +217,10 @@ TextureImporter:
       name: Logo_2
       rect:
         serializedVersion: 2
-        x: 145
-        y: 109
-        width: 32
-        height: 24
+        x: 577
+        y: 436
+        width: 122
+        height: 73
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +239,10 @@ TextureImporter:
       name: Logo_3
       rect:
         serializedVersion: 2
-        x: 5
-        y: 11
-        width: 86
-        height: 85
+        x: 6
+        y: 33
+        width: 340
+        height: 332
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +261,10 @@ TextureImporter:
       name: Logo_4
       rect:
         serializedVersion: 2
-        x: 81
-        y: 80
-        width: 82
-        height: 29
+        x: 316
+        y: 309
+        width: 87
+        height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +283,10 @@ TextureImporter:
       name: Logo_5
       rect:
         serializedVersion: 2
-        x: 162
-        y: 84
-        width: 21
-        height: 15
+        x: 405
+        y: 320
+        width: 81
+        height: 75
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +305,10 @@ TextureImporter:
       name: Logo_6
       rect:
         serializedVersion: 2
-        x: 176
-        y: 95
-        width: 8
-        height: 8
+        x: 481
+        y: 321
+        width: 65
+        height: 88
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +327,10 @@ TextureImporter:
       name: Logo_7
       rect:
         serializedVersion: 2
-        x: 180
-        y: 83
-        width: 13
-        height: 13
+        x: 549
+        y: 322
+        width: 75
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +349,10 @@ TextureImporter:
       name: Logo_8
       rect:
         serializedVersion: 2
-        x: 190
-        y: 83
-        width: 46
-        height: 21
+        x: 624
+        y: 335
+        width: 62
+        height: 43
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +371,10 @@ TextureImporter:
       name: Logo_9
       rect:
         serializedVersion: 2
-        x: 252
-        y: 11
-        width: 106
-        height: 86
+        x: 690
+        y: 365
+        width: 15
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +393,10 @@ TextureImporter:
       name: Logo_10
       rect:
         serializedVersion: 2
-        x: 92
-        y: 11
-        width: 63
-        height: 63
+        x: 786
+        y: 323
+        width: 78
+        height: 49
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,10 +415,10 @@ TextureImporter:
       name: Logo_11
       rect:
         serializedVersion: 2
-        x: 156
-        y: 11
+        x: 835
+        y: 341
         width: 63
-        height: 63
+        height: 46
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -422,10 +437,10 @@ TextureImporter:
       name: Logo_12
       rect:
         serializedVersion: 2
-        x: 216
-        y: 32
-        width: 38
-        height: 26
+        x: 1012
+        y: 30
+        width: 421
+        height: 339
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -444,10 +459,10 @@ TextureImporter:
       name: Logo_13
       rect:
         serializedVersion: 2
-        x: 358
-        y: 11
-        width: 68
-        height: 63
+        x: 699
+        y: 320
+        width: 32
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -466,10 +481,10 @@ TextureImporter:
       name: Logo_14
       rect:
         serializedVersion: 2
-        x: 426
-        y: 11
-        width: 81
-        height: 63
+        x: 738
+        y: 320
+        width: 51
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -480,6 +495,116 @@ TextureImporter:
       bones: []
       spriteID: d668fe2f0f6a0ff80800000000000000
       internalID: -8074770578077153683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_15
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 29
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 11795523809158aa0800000000000000
+      internalID: -6159489392364382447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_16
+      rect:
+        serializedVersion: 2
+        x: 617
+        y: 29
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cf728bef309db01c0800000000000000
+      internalID: -4536293588464031748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_17
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 117
+        width: 141
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a6b97f0220ce023e0800000000000000
+      internalID: -2080403533957981334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_18
+      rect:
+        serializedVersion: 2
+        x: 1444
+        y: 29
+        width: 267
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c262cb53caddf3f30800000000000000
+      internalID: 4557605079627867692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Logo_19
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 30
+        width: 321
+        height: 244
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bed67605f3f4b2ff0800000000000000
+      internalID: -59867036688880149
       vertices: []
       indices: 
       edges: []
@@ -505,6 +630,11 @@ TextureImporter:
       Logo_12: -1528687246299850986
       Logo_13: -1453834278069125553
       Logo_14: -8074770578077153683
+      Logo_15: -6159489392364382447
+      Logo_16: -4536293588464031748
+      Logo_17: -2080403533957981334
+      Logo_18: 4557605079627867692
+      Logo_19: -59867036688880149
       Logo_2: 6875538535012287733
       Logo_3: 2381070441135384947
       Logo_4: -3774021269495190454
