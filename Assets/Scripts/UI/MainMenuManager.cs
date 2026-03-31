@@ -37,7 +37,8 @@ public class MainMenuManager : MonoBehaviour {
 
         funFactDatabase = FindFirstObjectByType<FunFactDatabase>();
         loadingManager = FindFirstObjectByType<LoadingManager>();
-        loadingManager.HideLoadingScreen(); // hide the loading screen at the start of the game
+        // the line below is commented out because showing the loading screen initially caused some weird visuals
+        //loadingManager.HideLoadingScreen(); // hide the loading screen at the start of the game
 
         playButton.onClick.AddListener(OpenTutorial);
         creditsButton.onClick.AddListener(OpenCredits);
