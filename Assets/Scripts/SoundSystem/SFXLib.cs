@@ -20,7 +20,8 @@ namespace SFX {
         Success,
         Fail,
         ResearchMusic,
-        MenuMusic
+        MenuMusic,
+        VictoryMusic
 
         // note to self: consider reworking audioplayer to use one global audioplayer? just make it even more plug and play
 

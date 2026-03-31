@@ -1,0 +1,1040 @@
+fileFormatVersion: 2
+guid: c2b824d9c81ac484fa7e1b49d316ac5b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 2261921376115601501
+    second: VictoryFlowerRing_0
+  - first:
+      213: 1248798242686782714
+    second: VictoryFlowerRing_1
+  - first:
+      213: -7375657690725593992
+    second: VictoryFlowerRing_2
+  - first:
+      213: -5592809155861717513
+    second: VictoryFlowerRing_3
+  - first:
+      213: -6515406793053997577
+    second: VictoryFlowerRing_4
+  - first:
+      213: 6609761304502817371
+    second: VictoryFlowerRing_5
+  - first:
+      213: -8069923577883936357
+    second: VictoryFlowerRing_6
+  - first:
+      213: -2050118033566355427
+    second: VictoryFlowerRing_7
+  - first:
+      213: 3239358881906071222
+    second: VictoryFlowerRing_8
+  - first:
+      213: -4436862669150709748
+    second: VictoryFlowerRing_9
+  - first:
+      213: -3243295545178493820
+    second: VictoryFlowerRing_10
+  - first:
+      213: -1648055370385960818
+    second: VictoryFlowerRing_11
+  - first:
+      213: 867887224146660404
+    second: VictoryFlowerRing_12
+  - first:
+      213: -6279337554847801834
+    second: VictoryFlowerRing_13
+  - first:
+      213: -5275444820246978271
+    second: VictoryFlowerRing_14
+  - first:
+      213: -3357669242831590750
+    second: VictoryFlowerRing_15
+  - first:
+      213: 380101994350784165
+    second: VictoryFlowerRing_16
+  - first:
+      213: 8413700100799785413
+    second: VictoryFlowerRing_17
+  - first:
+      213: -7849212693855760741
+    second: VictoryFlowerRing_18
+  - first:
+      213: 3116544645144695499
+    second: VictoryFlowerRing_19
+  - first:
+      213: -7313196619554823042
+    second: VictoryFlowerRing_20
+  - first:
+      213: 4381037438545534689
+    second: VictoryFlowerRing_21
+  - first:
+      213: 976726484641812726
+    second: VictoryFlowerRing_22
+  - first:
+      213: -6753271311237311158
+    second: VictoryFlowerRing_23
+  - first:
+      213: 6147693998740984853
+    second: VictoryFlowerRing_24
+  - first:
+      213: 4842868231255647369
+    second: VictoryFlowerRing_25
+  - first:
+      213: -4574837473795919726
+    second: VictoryFlowerRing_26
+  - first:
+      213: -3409220537342883809
+    second: VictoryFlowerRing_27
+  - first:
+      213: 31570003055307337
+    second: VictoryFlowerRing_28
+  - first:
+      213: -3880184460393695419
+    second: VictoryFlowerRing_29
+  - first:
+      213: 3557992827270903622
+    second: VictoryFlowerRing_30
+  - first:
+      213: -3639430437259130217
+    second: VictoryFlowerRing_31
+  - first:
+      213: -2145586640227461459
+    second: VictoryFlowerRing_32
+  - first:
+      213: -2192621548240587697
+    second: VictoryFlowerRing_33
+  - first:
+      213: -6598552721706490426
+    second: VictoryFlowerRing_34
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: VictoryFlowerRing_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 894
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d50bb35e185f36f10800000000000000
+      internalID: 2261921376115601501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_1
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: afc4a73a26f945110800000000000000
+      internalID: 1248798242686782714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_2
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87c4c6f786664a990800000000000000
+      internalID: -7375657690725593992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_3
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7fd5f4864b95262b0800000000000000
+      internalID: -5592809155861717513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_4
+      rect:
+        serializedVersion: 2
+        x: 600
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f579d4ba00a495a0800000000000000
+      internalID: -6515406793053997577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_5
+      rect:
+        serializedVersion: 2
+        x: 744
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b52530de2e69abb50800000000000000
+      internalID: 6609761304502817371
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_6
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b99bdaf134fd10090800000000000000
+      internalID: -8069923577883936357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_7
+      rect:
+        serializedVersion: 2
+        x: 1030
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d10b7ada2848c83e0800000000000000
+      internalID: -2050118033566355427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_8
+      rect:
+        serializedVersion: 2
+        x: 1174
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b694008db384fc20800000000000000
+      internalID: 3239358881906071222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_9
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c089410f8e81d62c0800000000000000
+      internalID: -4436862669150709748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_10
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 904
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48c6708a2ef7df2d0800000000000000
+      internalID: -3243295545178493820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_11
+      rect:
+        serializedVersion: 2
+        x: 1607
+        y: 903
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8058f55f5ee029e0800000000000000
+      internalID: -1648055370385960818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_12
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 895
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 43c8c5405da5b0c00800000000000000
+      internalID: 867887224146660404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_13
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 750
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61ed68263cf4bd8a0800000000000000
+      internalID: -6279337554847801834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_14
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 751
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1212101f2ead9c6b0800000000000000
+      internalID: -5275444820246978271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_15
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 606
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2aaa4c30d992761d0800000000000000
+      internalID: -3357669242831590750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_16
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 607
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ae22bfffb4664500800000000000000
+      internalID: 380101994350784165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_17
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 462
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c9e6daf9a773c470800000000000000
+      internalID: 8413700100799785413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_18
+      rect:
+        serializedVersion: 2
+        x: 1748
+        y: 463
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9e8d3054aef11390800000000000000
+      internalID: -7849212693855760741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_19
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 193
+        width: 178
+        height: 254
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc2de74b7d0304b20800000000000000
+      internalID: 3116544645144695499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_20
+      rect:
+        serializedVersion: 2
+        x: 1751
+        y: 319
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e74e8d6eb6e428a90800000000000000
+      internalID: -7313196619554823042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_21
+      rect:
+        serializedVersion: 2
+        x: 1751
+        y: 176
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ee9130b6529ccc30800000000000000
+      internalID: 4381037438545534689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_22
+      rect:
+        serializedVersion: 2
+        x: 24
+        y: 35
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f09ac710970e8d00800000000000000
+      internalID: 976726484641812726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_23
+      rect:
+        serializedVersion: 2
+        x: 168
+        y: 35
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a451dd5d58f8742a0800000000000000
+      internalID: -6753271311237311158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_24
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 35
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 514d1c6be1ff05550800000000000000
+      internalID: 6147693998740984853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_25
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 35
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 984640a6ff2553340800000000000000
+      internalID: 4842868231255647369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_26
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 35
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 290bf3d5e89e280c0800000000000000
+      internalID: -4574837473795919726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_27
+      rect:
+        serializedVersion: 2
+        x: 743
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f1806beebf300b0d0800000000000000
+      internalID: -3409220537342883809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_28
+      rect:
+        serializedVersion: 2
+        x: 887
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 94a6ba120c8207000800000000000000
+      internalID: 31570003055307337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_29
+      rect:
+        serializedVersion: 2
+        x: 1031
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5473e379ac0d62ac0800000000000000
+      internalID: -3880184460393695419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_30
+      rect:
+        serializedVersion: 2
+        x: 1175
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 647bed610a7806130800000000000000
+      internalID: 3557992827270903622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_31
+      rect:
+        serializedVersion: 2
+        x: 1318
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 79acc62cc452e7dc0800000000000000
+      internalID: -3639430437259130217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_32
+      rect:
+        serializedVersion: 2
+        x: 1462
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da61b6a81585932e0800000000000000
+      internalID: -2145586640227461459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_33
+      rect:
+        serializedVersion: 2
+        x: 1606
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f44b042a15e3291e0800000000000000
+      internalID: -2192621548240587697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: VictoryFlowerRing_34
+      rect:
+        serializedVersion: 2
+        x: 1750
+        y: 34
+        width: 146
+        height: 140
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c56ffe924b3d64a0800000000000000
+      internalID: -6598552721706490426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      VictoryFlowerRing_0: 2261921376115601501
+      VictoryFlowerRing_1: 1248798242686782714
+      VictoryFlowerRing_10: -3243295545178493820
+      VictoryFlowerRing_11: -1648055370385960818
+      VictoryFlowerRing_12: 867887224146660404
+      VictoryFlowerRing_13: -6279337554847801834
+      VictoryFlowerRing_14: -5275444820246978271
+      VictoryFlowerRing_15: -3357669242831590750
+      VictoryFlowerRing_16: 380101994350784165
+      VictoryFlowerRing_17: 8413700100799785413
+      VictoryFlowerRing_18: -7849212693855760741
+      VictoryFlowerRing_19: 3116544645144695499
+      VictoryFlowerRing_2: -7375657690725593992
+      VictoryFlowerRing_20: -7313196619554823042
+      VictoryFlowerRing_21: 4381037438545534689
+      VictoryFlowerRing_22: 976726484641812726
+      VictoryFlowerRing_23: -6753271311237311158
+      VictoryFlowerRing_24: 6147693998740984853
+      VictoryFlowerRing_25: 4842868231255647369
+      VictoryFlowerRing_26: -4574837473795919726
+      VictoryFlowerRing_27: -3409220537342883809
+      VictoryFlowerRing_28: 31570003055307337
+      VictoryFlowerRing_29: -3880184460393695419
+      VictoryFlowerRing_3: -5592809155861717513
+      VictoryFlowerRing_30: 3557992827270903622
+      VictoryFlowerRing_31: -3639430437259130217
+      VictoryFlowerRing_32: -2145586640227461459
+      VictoryFlowerRing_33: -2192621548240587697
+      VictoryFlowerRing_34: -6598552721706490426
+      VictoryFlowerRing_4: -6515406793053997577
+      VictoryFlowerRing_5: 6609761304502817371
+      VictoryFlowerRing_6: -8069923577883936357
+      VictoryFlowerRing_7: -2050118033566355427
+      VictoryFlowerRing_8: 3239358881906071222
+      VictoryFlowerRing_9: -4436862669150709748
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

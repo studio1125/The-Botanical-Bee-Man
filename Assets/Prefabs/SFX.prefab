@@ -63,6 +63,10 @@ MonoBehaviour:
     - {fileID: 7472597503551530258, guid: 9a8470127645e96409246bb43ffd8092, type: 3}
     - {fileID: 7472597503551530258, guid: f82023662dee3b44998f15d7cef345c5, type: 3}
   - label: 6
+    key: 11
+    sounds:
+    - {fileID: 7472597503551530258, guid: 97a98bfa3353fa647a3d39d80a1a17d2, type: 3}
+  - label: 6
     key: 6
     sounds:
     - {fileID: 7472597503551530258, guid: dd2393610eb5018409e04b639c3b4948, type: 3}
