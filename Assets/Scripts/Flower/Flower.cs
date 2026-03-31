@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
 using SFX;
 
 public class Flower : MonoBehaviour {
@@ -12,7 +11,8 @@ public class Flower : MonoBehaviour {
     [Header("Settings")]
     [SerializeField, Tooltip("The time it takes for the flower to be fully pollinated")] private float pollinationTime;
     [SerializeField, Tooltip("The time the bee must be in contact before taking pesticide damage")] private float damageTime;
-    [SerializeField, Tooltip("Time nectar stays on flower before going on cooldown again")] private Cooldown nectarLifetime; // TODO. add cooldownmanager ? 
+    [SerializeField, Tooltip("Time nectar stays on flower before going on cooldown again")] private Cooldown nectarLifetime; // TODO. add cooldownmanager ?
+    [SerializeField, Tooltip("Multiplier to apply to nectar lifetime (used for the enhanced soil upgrade)")] private float nectarLifetimeMultiplier;
     [SerializeField, Tooltip("The amount of nectar the flower provides when fully pollinated")] private int nectarAmount;
     [SerializeField, Tooltip("The range for the time it takes for the flower to regenerate nectar after its lifetime ends")] private Vector2 nectarRegenerationRange;
     [SerializeField, Tooltip("The range for the time it takes for the flower to regenerate nectar after player capture"), Min(0)] private Vector2 nectarRegenerationOnCaptureRange;
@@ -38,7 +38,6 @@ public class Flower : MonoBehaviour {
     [SerializeField] private Sound pollinationSound;
     [SerializeField] private Sound playerContactSound;
 
-
     [Header("Actions")]
     public Action<int> onPollinated; // action to be invoked when the flower is fully pollinated (passes the amount of nectar provided by the flower as an argument)
 
@@ -61,9 +60,12 @@ public class Flower : MonoBehaviour {
             PopupPlayer.Play(pesticideFarPopup, pesticideTransform.position, true);
             hasPesticide = true;
 
-        }
-        else
+        } else
             hasPesticide = false;
+
+        // apply the nectar lifetime multiplier to the nectar lifetime if the upgrade is purchased
+        if (PlayerData.IsUpgradePurchased(UpgradeType.EnhancedSoil))
+            nectarLifetime.SetDuration(nectarLifetime.Duration * nectarLifetimeMultiplier);
 
     }
 
@@ -109,8 +111,7 @@ public class Flower : MonoBehaviour {
             if (!player.HasSuper())
                 audioPlayer.Play(pollinationSound);
 
-        }
-        else if (collision.CompareTag("Bee"))
+        } else if (collision.CompareTag("Bee"))
             audioPlayer.Play(playerContactSound);
 
 

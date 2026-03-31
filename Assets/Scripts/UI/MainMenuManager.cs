@@ -19,7 +19,12 @@ public class MainMenuManager : MonoBehaviour {
     [SerializeField] private CanvasGroup tutorialSection;
     [SerializeField] private float tutorialFadeDuration;
     [SerializeField] private Button tutorialCloseButton;
+    [SerializeField] private GameObject[] pages;
+    [SerializeField] private Button previousButton;
+    [SerializeField] private Button nextButton;
+    [SerializeField] private Button previousBuzzButton; // the previous button on the last page that goes back to the second to last page (specifically for when the buzz button is being shown)
     [SerializeField] private Button buzzButton;
+    private int currentPageIndex;
     private bool isTutorialVisible;
 
     [Header("Credits Section")]
@@ -41,6 +46,9 @@ public class MainMenuManager : MonoBehaviour {
         tutorialCloseButton.onClick.AddListener(CloseTutorial);
         creditsCloseButton.onClick.AddListener(CloseCredits);
 
+        previousButton.onClick.AddListener(OpenPreviousTutorialPage);
+        nextButton.onClick.AddListener(OpenNextTutorialPage);
+        previousBuzzButton.onClick.AddListener(OpenPreviousTutorialPage); // the previous buzz button does the same thing as the regular previous button, it just shows up on the last page when the buzz button is shown
         buzzButton.onClick.AddListener(LoadBuzzMode);
 
         // make sure the tutorial section is hidden by default
@@ -51,6 +59,8 @@ public class MainMenuManager : MonoBehaviour {
         creditsSection.gameObject.SetActive(false);
         creditsSection.alpha = 0f;
 
+        ResetTutorial(); // reset the tutorial to ensure it starts on the first page with the correct buttons shown
+
         RefreshLayout(mainMenu); // refresh the layout to ensure everything is positioned correctly at the start
 
     }
@@ -58,6 +68,8 @@ public class MainMenuManager : MonoBehaviour {
     private void OpenTutorial() {
 
         if (isTutorialVisible) return; // if the tutorial is already visible, do nothing
+
+        ResetTutorial(); // reset the tutorial to ensure it starts on the first page with the correct buttons shown
 
         if (menuFadeCoroutine != null) StopCoroutine(menuFadeCoroutine); // stop any existing fade coroutine to prevent conflicts
         menuFadeCoroutine = StartCoroutine(FadeMenu(tutorialSection, 1f, tutorialFadeDuration));
@@ -76,6 +88,104 @@ public class MainMenuManager : MonoBehaviour {
         menuFadeCoroutine = StartCoroutine(FadeMenu(tutorialSection, 0f, tutorialFadeDuration));
 
         isTutorialVisible = false;
+
+    }
+
+    private void OpenPreviousTutorialPage() {
+
+        if (currentPageIndex > 0) {
+
+            pages[currentPageIndex].SetActive(false); // hide the current page
+            currentPageIndex--; // move to the previous page index
+            pages[currentPageIndex].SetActive(true); // show the previous page
+            RefreshLayout(tutorialSection.GetComponent<RectTransform>()); // refresh the layout to ensure everything is positioned correctly
+
+            // we cannot be on the last page if we're moving back
+            // essentially, the buzz button is only shown on the last page, and the previous buzz button is also only shown on the last page, but only if there is a previous page to go back to (e.g. if there's only one page, the buzz button is shown but the previous buzz button is not shown since there's no previous page to go back to); both the next button and previous button are hidden
+            // if we're not on the last page, the next button is shown and the previous button is shown if we're past the first page; both the buzz button and the previous buzz button are hidden
+            if (currentPageIndex == pages.Length - 1) {
+
+                // we are on the last page (this case is technically not possible, but it is kept here for clarity and simplicity of the logic)
+
+                previousButton.gameObject.SetActive(true);
+                nextButton.gameObject.SetActive(false);
+                previousBuzzButton.gameObject.SetActive(true);
+                buzzButton.gameObject.SetActive(true);
+
+            } else {
+
+                // we are not on the last page
+
+                previousButton.gameObject.SetActive(currentPageIndex > 0); // only shown if we're past the first page
+                nextButton.gameObject.SetActive(true);
+                previousBuzzButton.gameObject.SetActive(false);
+                buzzButton.gameObject.SetActive(false);
+
+            }
+        }
+    }
+
+    private void OpenNextTutorialPage() {
+
+        if (currentPageIndex < pages.Length - 1) {
+
+            pages[currentPageIndex].SetActive(false); // hide the current page
+            currentPageIndex++; // move to the next page index
+            pages[currentPageIndex].SetActive(true); // show the next page
+            RefreshLayout(tutorialSection.GetComponent<RectTransform>()); // refresh the layout to ensure everything is positioned correctly
+
+            // we cannot be on the first page if we're moving forward
+            // essentially, the buzz button is only shown on the last page, and the previous buzz button is also only shown on the last page, but only if there is a previous page to go back to (e.g. if there's only one page, the buzz button is shown but the previous buzz button is not shown since there's no previous page to go back to); both the next button and previous button are hidden
+            // if we're not on the last page, the next button is shown and the previous button is shown if we're past the first page; both the buzz button and the previous buzz button are hidden
+            if (currentPageIndex == pages.Length - 1) {
+
+                // we are on the last page
+
+                previousButton.gameObject.SetActive(true);
+                nextButton.gameObject.SetActive(false);
+                previousBuzzButton.gameObject.SetActive(true);
+                buzzButton.gameObject.SetActive(true);
+
+            } else {
+
+                // we are not on the last page, but we can't be on the first page either
+
+                previousButton.gameObject.SetActive(true);
+                nextButton.gameObject.SetActive(true);
+                previousBuzzButton.gameObject.SetActive(false);
+                buzzButton.gameObject.SetActive(false);
+
+            }
+        }
+    }
+
+    private void ResetTutorial() {
+
+        currentPageIndex = 0; // start on the first page of the tutorial
+
+        if (pages.Length > 1) {
+
+            // if there are multiple pages, show the next button and hide the buzz button and the previous buzz button since we're on the first page
+            nextButton.gameObject.SetActive(true);
+            previousBuzzButton.gameObject.SetActive(false);
+            buzzButton.gameObject.SetActive(false);
+
+        } else {
+
+            // if there's only one page, hide the next button and the previous buzz button and show the buzz button since we're on the only page which is also the last page
+            nextButton.gameObject.SetActive(false);
+            previousBuzzButton.gameObject.SetActive(false);
+            buzzButton.gameObject.SetActive(true);
+
+        }
+
+        previousButton.gameObject.SetActive(false); // the previous button starts off inactive either way since we're on the first page
+
+        // disable all the tutorial pages except the first one
+        for (int i = 1; i < pages.Length; i++)
+            pages[i].SetActive(false);
+
+        pages[0].SetActive(true); // make sure the first page is active
 
     }
 

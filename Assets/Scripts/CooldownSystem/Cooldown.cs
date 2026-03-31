@@ -49,5 +49,10 @@ public class Cooldown {
 
     #endregion
 
+    #region SETTERS
+
+    public void SetDuration(float duration) => this.duration = duration;
+
+    #endregion
 
 }

@@ -42,6 +42,7 @@ public class BeeController : MonoBehaviour {
     [SerializeField, Tooltip("Charge gained on pollinate flower, max 100")] private float superChargeOnPollinate;
     [SerializeField, Tooltip("Charge decay per second")] private float superChargeDecay;
     [SerializeField] private Cooldown superDuration;
+    [SerializeField, Tooltip("Multiplier to apply to super duration (used for the extended super upgrade)")] private float superDurationMultiplier;
     private float superCharge;
 
     [Header("Sounds")]
@@ -67,6 +68,10 @@ public class BeeController : MonoBehaviour {
 
         currMoveSpeed = moveSpeed;
         currRotationSpeed = rotationSpeed;
+
+        // apply the super duration multiplier to the super duration if the upgrade is purchased
+        if (PlayerData.IsUpgradePurchased(UpgradeType.ExtendedSuper))
+            superDuration.SetDuration(superDuration.Duration * superDurationMultiplier);
 
     }
 

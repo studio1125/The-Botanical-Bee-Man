@@ -20,6 +20,7 @@ MonoBehaviour:
   description: Expanding your garden creates more space for plants and supports a
     healthier ecosystem. Increases the size of your garden, allowing for more growth
     and activity.
-  conciseDescription: Increases the size of your garden
-  stage: 0
+  conciseDescription: Increases the size of your garden, allowing for more growth
+    and activity
+  stage: 1
   nectarCost: 50

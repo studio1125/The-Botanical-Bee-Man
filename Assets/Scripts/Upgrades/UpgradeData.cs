@@ -38,6 +38,9 @@ public enum UpgradeType {
 
     PesticideResistance,
     TrashRemoval,
-    GardenExpansion
+    GardenExpansion,
+    EnhancedSoil,
+    ExtendedSuper,
+    NativeSpecies
 
 }

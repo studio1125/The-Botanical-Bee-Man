@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6719a6fd772ae014d9f289bc9eefcef2, type: 3}
   m_Name: TrashRemoval
   m_EditorClassIdentifier: Assembly-CSharp::Upgrade
-  type: 0
+  type: 1
   icon: {fileID: 21300000, guid: cb3ad90b5692485448bd8e6fe4287f92, type: 3}
   siteName: Green Living Hub
   url: https://www.greenlivinghub.org/reduce-yard-waste
   siteTitle: How to Reduce Waste in Your Backyard
   description: Open trash and litter can pollute soil and harm wildlife. Keep your
     space clean and safe. Removes all trash obstacles from your garden.
-  conciseDescription: Removes all trash obstacles from your garden.
+  conciseDescription: Removes all trash obstacles from your garden
   stage: 0
   nectarCost: 50

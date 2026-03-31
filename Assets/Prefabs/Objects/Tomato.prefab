@@ -113,6 +113,7 @@ MonoBehaviour:
   nectarLifetime:
     duration: 5.5
     updateFrequency: 1
+  nectarLifetimeMultiplier: 2
   nectarAmount: 5
   nectarRegenerationRange: {x: 4, y: 8}
   nectarRegenerationOnCaptureRange: {x: 15, y: 20}

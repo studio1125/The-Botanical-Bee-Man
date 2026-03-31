@@ -101,12 +101,14 @@ public class UpgradeManager : MonoBehaviour {
         }
 
         resultCountText.text = $"Showing {Mathf.Min(maxResultsToShow, availableUpgrades.Count)} of {availableUpgrades.Count} available upgrades";
-
         RefreshLayout(upgradeContent); // refresh the layout to ensure the new buttons are properly arranged
 
     }
 
     public bool PurchaseUpgrade(UpgradeData upgrade) {
+
+        // check if the upgrade has already been purchased; if so, return false to indicate the purchase was unsuccessful
+        if (PlayerData.IsUpgradePurchased(upgrade.GetUpgradeType())) return false;
 
         // check if the player has enough nectar to purchase the upgrade; if not, return false to indicate the purchase was unsuccessful
         if (dataManager.GetNectarCollected() < upgrade.GetNectarCost()) {
