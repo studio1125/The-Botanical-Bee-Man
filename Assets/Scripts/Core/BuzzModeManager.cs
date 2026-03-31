@@ -55,7 +55,11 @@ public class BuzzModeManager : BaseModeManager {
 
             isDayOver = true; // set the isDayOver flag to true to indicate that the day has ended
             timeRemaining = 0f; // reset the time remaining to ensure it doesn't go negative
-            loadingManager.LoadScene(Constants.RESEARCH_MODE_SCENE_NAME, funFactDatabase.GetRandomFunFact(), dataManager.GetNectarCollected()); // load the research mode scene at the end of the day
+
+            if (PlayerData.IsUpgradePurchased(UpgradeType.PesticideResistance))
+                loadingManager.LoadScene(Constants.VICTORY_SCENE_NAME, funFactDatabase.GetRandomFunFact(), dataManager.GetNectarCollected()); // load the victory scene if the player has the pesticide resistance upgrade (which is the final upgrade and thus indicates that the player has won the game)
+            else
+                loadingManager.LoadScene(Constants.RESEARCH_MODE_SCENE_NAME, funFactDatabase.GetRandomFunFact(), dataManager.GetNectarCollected()); // load the research mode scene at the end of the day
 
             // don't update the day text here; it is only updated when the player returns to buzz mode after the research mode scene is loaded (so in the Start method)
 
