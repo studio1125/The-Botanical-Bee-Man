@@ -37,6 +37,8 @@ public class UpgradeManager : MonoBehaviour {
 
         nextButton.onClick.AddListener(OnNextButtonClicked);
 
+        currentStage = TempStorage.GetCurrentUpgradeStage(); // get the current stage from temp storage
+
         // find the highest stage among the upgrades to determine how many stages we need to organize upgrades into
         int maxStage = 0;
 
@@ -65,6 +67,11 @@ public class UpgradeManager : MonoBehaviour {
         for (int i = 0; i <= maxStage; i++)
             if (availableUpgradesByStage[i].Count == 0)
                 Debug.LogError($"No upgrades found for stage {i}. This will cause issues when trying to generate upgrade choices for this stage.");
+
+        // remove all upgrades that have been purchased from the available upgrades lists, so that they will not be shown as choices
+        foreach (UpgradeData upgrade in upgrades)
+            if (PlayerData.IsUpgradePurchased(upgrade.GetUpgradeType()))
+                availableUpgradesByStage[upgrade.GetStage()].Remove(upgrade);
 
         GenerateUpgradeChoices();
 
@@ -129,8 +136,8 @@ public class UpgradeManager : MonoBehaviour {
     private void OnNextButtonClicked() {
 
         // this does not necessarily move to the next stage; it just goes back to the buzz mode and updates the current stage if there are no more available upgrades for the current stage (if there are still available upgrades for the current stage, we stay in the same stage and just generate new choices)
-        if (availableUpgradesByStage[currentStage].Count == 0) // if there are no more available upgrades for the current stage, move to the next stage
-            currentStage++;
+        if (availableUpgradesByStage[currentStage].Count == 0)  // if there are no more available upgrades for the current stage, move to the next stage
+            TempStorage.SetCurrentUpgradeStage(++currentStage); // increment the current stage and save it to temp storage
 
         researchModeManager.ReturnToBuzzMode();
 
