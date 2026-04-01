@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 74e4087ab473575498b7a42bc64a5b61
+guid: 5397cd548953dab4fa07864ce5d0a13c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7481483337956658778
-    second: research_bg_0
+      213: 2223640513849475017
+    second: research_bg_2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -97,7 +97,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -110,7 +110,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
+    buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: research_bg_0
+      name: research_bg_2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a5e09ef057193d760800000000000000
-      internalID: 7481483337956658778
+      spriteID: 9cf3a281445fbde10800000000000000
+      internalID: 2223640513849475017
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      research_bg_0: 7481483337956658778
+      research_bg_2_0: 2223640513849475017
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
