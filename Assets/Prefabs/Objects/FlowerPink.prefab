@@ -144,6 +144,7 @@ MonoBehaviour:
   nectarLifetime:
     duration: 5.5
     updateFrequency: 1
+  nectarLifetimeMultiplier: 0
   nectarAmount: 5
   nectarRegenerationRange: {x: 4, y: 8}
   nectarRegenerationOnCaptureRange: {x: 15, y: 20}
@@ -193,7 +194,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0.15}
-  m_Radius: 0.4
+  m_Radius: 0.3
 --- !u!114 &1281895120632261400
 MonoBehaviour:
   m_ObjectHideFlags: 0
