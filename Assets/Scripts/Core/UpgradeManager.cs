@@ -1,8 +1,9 @@
+using SFX;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using SFX;
 
 public class UpgradeManager : MonoBehaviour {
 
@@ -12,14 +13,17 @@ public class UpgradeManager : MonoBehaviour {
     [SerializeField] private UpgradeButton upgradeButtonPrefab;
     [SerializeField] private UpgradeData[] upgrades;
     [SerializeField] private RectTransform upgradeContent; // the parent transform for the upgrade buttons (e.g. a vertical layout group)
+    [SerializeField] private UpgradeConfirmation upgradeConfirmation;
     [SerializeField] private Button nextButton;
     private ResearchModeManager researchModeManager;
     private DataManager dataManager;
     private AudioPlayer audioPlayer;
+    private RectTransform rectTransform;
 
     [Header("Settings")]
     [SerializeField] private string[] searchBarTexts;
     [SerializeField] private int maxResultsToShow; // the maximum number of upgrade results to show at once (shown upgrades will be less than this if there are not enough unbought upgrades to reach the max)
+    [SerializeField] private float upgradeConfirmationFadeDuration;
     private int currentStage; // the current stage of the game, used to determine which upgrades are available to show
 
     [Header("Data")]
@@ -34,6 +38,10 @@ public class UpgradeManager : MonoBehaviour {
         researchModeManager = FindFirstObjectByType<ResearchModeManager>();
         dataManager = FindFirstObjectByType<DataManager>();
         audioPlayer = GetComponent<AudioPlayer>();
+        rectTransform = GetComponent<RectTransform>();
+
+        upgradeConfirmation.Initialize(this);
+        upgradeConfirmation.gameObject.SetActive(false); // ensure the upgrade confirmation screen is hidden at the start
 
         nextButton.onClick.AddListener(OnNextButtonClicked);
 
@@ -103,12 +111,12 @@ public class UpgradeManager : MonoBehaviour {
 
             UpgradeData upgrade = availableUpgrades[i];
             UpgradeButton button = Instantiate(upgradeButtonPrefab, upgradeContent);
-            button.Initialize(this, upgrade, transform.parent);
+            button.Initialize(upgradeConfirmation, upgrade, transform.parent);
 
         }
 
         resultCountText.text = $"Showing {Mathf.Min(maxResultsToShow, availableUpgrades.Count)} of {availableUpgrades.Count} available upgrades";
-        RefreshLayout(upgradeContent); // refresh the layout to ensure the new buttons are properly arranged
+        RefreshLayout(rectTransform); // refresh the layout to ensure the new buttons are properly arranged
 
     }
 
@@ -118,7 +126,7 @@ public class UpgradeManager : MonoBehaviour {
         if (PlayerData.IsUpgradePurchased(upgrade.GetUpgradeType())) return false;
 
         // check if the player has enough nectar to purchase the upgrade; if not, return false to indicate the purchase was unsuccessful
-        if (dataManager.GetNectarCollected() < upgrade.GetNectarCost()) {
+        if (!CanAffordUpgrade(upgrade)) {
 
             audioPlayer.Play(purchaseFailSound, target: Camera.main.gameObject);
             return false;
@@ -132,6 +140,8 @@ public class UpgradeManager : MonoBehaviour {
         return true;
 
     }
+
+    public bool CanAffordUpgrade(UpgradeData upgrade) => dataManager.GetNectarCollected() >= upgrade.GetNectarCost();
 
     private void OnNextButtonClicked() {
 

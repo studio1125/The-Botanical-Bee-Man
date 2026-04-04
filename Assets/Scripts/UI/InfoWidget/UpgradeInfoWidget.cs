@@ -40,7 +40,7 @@ public class UpgradeInfoWidget : MonoBehaviour {
 
         StartCoroutine(Fade(1f, fadeDuration)); // fade the widget in to full opacity
 
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform); // force the layout to update to fix any issues with the widget's size or position
+        RefreshLayout(rectTransform); // force the layout to update to fix any issues with the widget's size or position
 
     }
 
@@ -83,6 +83,16 @@ public class UpgradeInfoWidget : MonoBehaviour {
         }
 
         canvasGroup.alpha = targetOpacity;
+
+    }
+
+    // IMPORTANT: this only works when the root is visible
+    protected void RefreshLayout(RectTransform root) {
+
+        foreach (LayoutGroup layoutGroup in root.GetComponentsInChildren<LayoutGroup>())
+            LayoutRebuilder.ForceRebuildLayoutImmediate(layoutGroup.GetComponent<RectTransform>());
+
+        LayoutRebuilder.ForceRebuildLayoutImmediate(root); // force a rebuild of the root layout at the end
 
     }
 }

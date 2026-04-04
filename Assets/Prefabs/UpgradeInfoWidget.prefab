@@ -168,6 +168,7 @@ GameObject:
   - component: {fileID: 4568331553934963083}
   - component: {fileID: 1294565469792836354}
   - component: {fileID: 745960061244679534}
+  - component: {fileID: 7091480925581601008}
   m_Layer: 5
   m_Name: UpgradeInfoWidget
   m_TagString: Untagged
@@ -316,6 +317,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Nobi.UiRoundedCorners::Nobi.UiRoundedCorners.ImageWithRoundedCorners
   radius: 15
   image: {fileID: 3814008903157433219}
+--- !u!114 &7091480925581601008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 878063852952136196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfabb0440166ab443bba8876756fdfa9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Shadow
+  m_EffectColor: {r: 0.20247419, g: 0.42528018, b: 0.4716981, a: 1}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 0
 --- !u!1 &1076864045965473267
 GameObject:
   m_ObjectHideFlags: 0

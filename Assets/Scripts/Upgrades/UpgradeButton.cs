@@ -7,10 +7,10 @@ using UnityEngine.UI;
 public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
     [Header("References")]
-    private UpgradeManager upgradeManager;
+    private UpgradeConfirmation upgradeConfirmation;
     private UpgradeData upgradeData;
     private Button button;
-    private Coroutine fadeCoroutine;
+    //private Coroutine fadeCoroutine;
 
     [Header("UI References")]
     [SerializeField] private Image icon;
@@ -28,9 +28,9 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     private UpgradeInfoWidget currInfoWidget;
     private Transform rootTransform; // this is the transform of the root object that the item info widget will be parented to; this is used to ensure that the level info widget is always in the same space as the root object and not in world space
 
-    public void Initialize(UpgradeManager upgradeManager, UpgradeData upgradeData, Transform rootTransform) {
+    public void Initialize(UpgradeConfirmation upgradeConfirmation, UpgradeData upgradeData, Transform rootTransform) {
 
-        this.upgradeManager = upgradeManager;
+        this.upgradeConfirmation = upgradeConfirmation;
         this.upgradeData = upgradeData;
         this.rootTransform = rootTransform;
 
@@ -66,31 +66,35 @@ public class UpgradeButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     private void OnClicked() {
 
-        if (upgradeManager.PurchaseUpgrade(upgradeData)) {
+        // for the mobile version of the game, a confirmation dialogue will be shown before purchasing the upgrade
+        upgradeConfirmation.ShowUpgradeConfirmation(upgradeData);
 
-            if (fadeCoroutine != null) StopCoroutine(fadeCoroutine); // stop any existing fade coroutine to prevent conflicts
-            fadeCoroutine = StartCoroutine(FadeTextColor(siteTitleText, purchasedColor, purchasedFadeDuration)); // fade the site title text to the purchased color to indicate that the upgrade has been purchased
+        // the below code is commented out because it is for the PC/web version of the game
+        //if (upgradeManager.PurchaseUpgrade(upgradeData)) {
 
-        }
+        //    if (fadeCoroutine != null) StopCoroutine(fadeCoroutine); // stop any existing fade coroutine to prevent conflicts
+        //    fadeCoroutine = StartCoroutine(FadeTextColor(siteTitleText, purchasedColor, purchasedFadeDuration)); // fade the site title text to the purchased color to indicate that the upgrade has been purchased
+
+        //}
     }
 
-    private IEnumerator FadeTextColor(TMP_Text text, Color targetColor, float fadeDuration) {
+    //private IEnumerator FadeTextColor(TMP_Text text, Color targetColor, float fadeDuration) {
 
-        text.gameObject.SetActive(true); // ensure the text is active for fading
+    //    text.gameObject.SetActive(true); // ensure the text is active for fading
 
-        float currentTime = 0f;
-        Color initialColor = siteTitleText.color;
+    //    float currentTime = 0f;
+    //    Color initialColor = siteTitleText.color;
 
-        while (currentTime < fadeDuration) {
+    //    while (currentTime < fadeDuration) {
 
-            text.color = Color.Lerp(initialColor, targetColor, currentTime / fadeDuration);
-            currentTime += Time.deltaTime;
-            yield return null;
+    //        text.color = Color.Lerp(initialColor, targetColor, currentTime / fadeDuration);
+    //        currentTime += Time.deltaTime;
+    //        yield return null;
 
-        }
+    //    }
 
-        text.color = targetColor;
-        fadeCoroutine = null;
+    //    text.color = targetColor;
+    //    fadeCoroutine = null;
 
-    }
+    //}
 }
